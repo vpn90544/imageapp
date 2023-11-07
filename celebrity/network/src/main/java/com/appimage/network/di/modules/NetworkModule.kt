@@ -2,6 +2,7 @@ package com.appimage.network.di.modules
 
 import com.appimage.core.di.qualifiers.DefaultNetworkApi
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import okhttp3.HttpUrl
@@ -10,28 +11,28 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-private const val BASE_URL = "http://172.17.1.37:8080"
+const val BASE_URL = "http://172.17.1.37:8080"
 
 @Module
 object NetworkModule {
 
-    @Provides
-    @Singleton
-    @DefaultNetworkApi
-    fun provideBaseUrl(): HttpUrl {
-        return BASE_URL.toHttpUrl()
-    }
+//    @Provides
+//    @Singleton
+//    @DefaultNetworkApi
+//    fun provideBaseUrl(): HttpUrl {
+//        return BASE_URL.toHttpUrl()
+//    }
 
 
     @Provides
     @Singleton
     @DefaultNetworkApi
     fun provideRetrofit(
-        baseUrl: HttpUrl,
-        gsonConverterFactory: GsonConverterFactory,
+        //@DefaultNetworkApi baseUrl: HttpUrl,
+        @DefaultNetworkApi gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl("http://172.17.1.37:8080")
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
@@ -40,9 +41,15 @@ object NetworkModule {
     @Singleton
     @DefaultNetworkApi
     fun provideGsonConverterFactory(
-        gson: Gson,
+        @DefaultNetworkApi  gson: Gson
     ): GsonConverterFactory {
         return GsonConverterFactory.create(gson)
+    }
+    @Singleton
+    @Provides
+    @DefaultNetworkApi
+    fun provideGson():Gson{
+        return GsonBuilder().create()
     }
 
 //    @Provides

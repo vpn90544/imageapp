@@ -8,17 +8,17 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 interface NetworkProvider {
 
-    @DefaultNetworkApi
-    fun provideBaseUrl(): HttpUrl
+//    @DefaultNetworkApi
+//    fun provideBaseUrl(): HttpUrl
 
 
-    @DefaultNetworkApi
-    fun provideRetrofit(): Retrofit
+//    @DefaultNetworkApi
+//    fun provideRetrofit(): Retrofit
 
 
-    @DefaultNetworkApi
-    fun provideGson(): Gson
-
-    @DefaultNetworkApi
-    fun provideGsonConverterFactory(): GsonConverterFactory
+//    @DefaultNetworkApi
+//    fun provideGson(): Gson
+//
+//    @DefaultNetworkApi
+//    fun provideGsonConverterFactory(): GsonConverterFactory
 }

@@ -5,6 +5,6 @@ import com.appimage.core.di.qualifiers.MediatorsQualifier
 
 interface MediatorsProvider {
 
-    @MediatorsQualifier
-    fun provideMediatorsMap(): MediatorsMap
+//    @MediatorsQualifier
+//    fun provideMediatorsMap(): MediatorsMap
 }
