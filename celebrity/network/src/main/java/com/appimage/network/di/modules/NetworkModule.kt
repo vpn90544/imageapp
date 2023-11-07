@@ -1,5 +1,6 @@
 package com.appimage.network.di.modules
 
+import com.appimage.core.di.qualifiers.DefaultNetworkApi
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
@@ -13,13 +14,13 @@ import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
 private const val BASE_URL = "http://172.17.1.37:8080"
-private const val AUTH_URL = "$BASE_URL/login/token"
 
 @Module
 object NetworkModule {
 
     @Provides
     @Singleton
+    @DefaultNetworkApi
     fun provideBaseUrl(): HttpUrl {
         return BASE_URL.toHttpUrl()
     }
@@ -27,6 +28,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @DefaultNetworkApi
     fun provideRetrofit(
         baseUrl: HttpUrl,
         gsonConverterFactory: GsonConverterFactory,
@@ -39,6 +41,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @DefaultNetworkApi
     fun provideGsonConverterFactory(
         gson: Gson,
     ): GsonConverterFactory {
@@ -47,6 +50,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    @DefaultNetworkApi
     fun provideCoroutineContext(): CoroutineContext {
         val job = SupervisorJob()
         return (Dispatchers.IO + job)
