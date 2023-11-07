@@ -1,4 +1,4 @@
-package ru.astondevs.amoney.core.viewmodel
+package com.appimage.core.di.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
