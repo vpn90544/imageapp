@@ -1,4 +1,4 @@
-package com.appimage.appimage
+package com.appimage.entry_point.presentation.state
 
 import com.appimage.arch.uistate.BaseUiState
 

@@ -1,20 +1,19 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
+
 android {
-    namespace 'com.appimage.appimage'
+    namespace 'com.appimage.entry_point'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.appimage.appimage"
         minSdk 24
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -41,9 +40,7 @@ dependencies {
     implementation project(":celebrity:core")
     implementation project(":celebrity:network")
     implementation project(":celebrity:storage")
-    implementation project(":features:entry_point")
 
-    implementation project(":features:mainscreen")
     implementation project(":api:mainscreen_api")
 
     implementation 'com.google.dagger:dagger:2.44'

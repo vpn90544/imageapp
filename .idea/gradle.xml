@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/celebrity/network" />
             <option value="$PROJECT_DIR$/celebrity/storage" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/entry_point" />
             <option value="$PROJECT_DIR$/features/mainscreen" />
           </set>
         </option>

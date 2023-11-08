@@ -1,24 +1,15 @@
-package com.appimage.appimage
+package com.appimage.entry_point.presentation.activity
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.appimage.appimage.databinding.ActivityMainBinding
-import com.appimage.appimage.di.MainActivityComponent
 import com.appimage.arch.di.ViewModelFactory
 import com.appimage.core.BaseApp
-import com.appimage.mainscreen.presentation.MainScreenFragment
+import com.appimage.entry_point.R
+import com.appimage.entry_point.databinding.ActivityMainBinding
+import com.appimage.entry_point.di.MainActivityComponent
 import javax.inject.Inject
-import com.appimage.mainscreen_api.mediators.MainScreenMediator
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     //private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -26,8 +17,8 @@ class MainActivity : AppCompatActivity() {
     //lateinit var mainScreenMediator: MainScreenMediator
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-    lateinit var binding:ActivityMainBinding
-    private val viewModel: MainActivityViewModel by viewModels { viewModelFactory }
+    lateinit var binding: ActivityMainBinding
+    private val viewModel: com.appimage.entry_point.presentation.viewmodel.MainActivityViewModel by viewModels { viewModelFactory }
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(newBase)
@@ -41,12 +32,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         //viewModel = ViewModelProvider(this, viewModelFactory)[MainActivityViewModel::class.java]
 
-        val fr = MainScreenFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment_container,fr)
-            .commit()
 
-        viewModel.getNExtNAv()
+
+        viewModel.getNExtNAv({
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.main_fragment_container,it)
+                .commit()
+
+        })
 
     }
 }

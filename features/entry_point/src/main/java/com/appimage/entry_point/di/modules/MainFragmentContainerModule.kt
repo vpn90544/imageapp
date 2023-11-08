@@ -1,7 +1,7 @@
-package com.appimage.appimage.di.modules
+package com.appimage.entry_point.di.modules
 
-import com.appimage.appimage.R
 import com.appimage.core.di.qualifiers.MainFragmentContainer
+import com.appimage.entry_point.R
 import dagger.Module
 import dagger.Provides
 

@@ -1,8 +1,7 @@
-package com.appimage.appimage.di
+package com.appimage.entry_point.di
 
-import com.appimage.appimage.MainActivity
-import com.appimage.appimage.di.modules.MainActivityViewModelModule
 import com.appimage.core.di.providers.ApplicationProvider
+import com.appimage.entry_point.di.modules.MainActivityViewModelModule
 import com.appimage.mainscreen_api.modules.MainScreenModule
 import dagger.Component
 import javax.inject.Singleton
@@ -35,5 +34,5 @@ internal interface MainActivityComponent {
         ): MainActivityComponent
     }
 
-    fun inject(mainActivity: MainActivity)
+    fun inject(mainActivity: com.appimage.entry_point.presentation.activity.MainActivity)
 }
