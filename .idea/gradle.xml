@@ -13,6 +13,8 @@
             <option value="$PROJECT_DIR$/api" />
             <option value="$PROJECT_DIR$/api/mainscreen_api" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/base" />
+            <option value="$PROJECT_DIR$/base/arch" />
             <option value="$PROJECT_DIR$/celebrity" />
             <option value="$PROJECT_DIR$/celebrity/core" />
             <option value="$PROJECT_DIR$/celebrity/network" />
