@@ -15,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import com.appimage.arch.di.ViewModelFactory
 import com.appimage.arch.uistate.BaseUiState
 import com.appimage.arch.viewmodel.BaseViewModel
+import com.appimage.core.BaseApp
+import com.appimage.core.di.providers.ApplicationProvider
 import kotlinx.coroutines.flow.collectLatest
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -52,8 +54,11 @@ abstract class BaseFragment <
 
     protected abstract fun getViewModelClass(): Class<ViewModel>
 
+    private fun getApplicationProvider(context: Context): ApplicationProvider {
+        return (context.applicationContext as BaseApp).getApplicationProvider()
+    }
+
     fun attach(fragment: BaseFragment<UiState, ViewModel, ViewBinding>) {
-        injectFeatureComponent()
         _fragment = fragment
         _lifecycleObserver = object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) = this@BaseFragment.onCreate(owner)
@@ -68,9 +73,9 @@ abstract class BaseFragment <
 
     @CallSuper
     override fun onAttach(context: Context) {
+        injectFeatureComponent(getApplicationProvider(context))
         viewModel = ViewModelProvider(this, viewModelFactory)[getViewModelClass()]
         viewModel.initialize()
-        fragment.viewLifecycleOwner.lifecycle.addObserver(lifecycleObserver)
         super.onAttach(context)
     }
 
@@ -106,7 +111,5 @@ abstract class BaseFragment <
     protected open fun handleUiState(uiState: UiState) {
     }
 
-    protected abstract fun injectFeatureComponent()
-
-    //protected abstract fun injectFeatureComponent(applicationProvider: ApplicationProvider)
+    protected abstract fun injectFeatureComponent(applicationProvider: ApplicationProvider)
 }

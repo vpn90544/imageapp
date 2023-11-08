@@ -2,9 +2,11 @@ package com.appimage.appimage.di
 
 import android.app.Application
 import com.appimage.appimage.app.AppImageApp
+import com.appimage.appimage.di.modules.MainActivityViewModelModule
 import com.appimage.appimage.di.modules.MainFragmentContainerModule
 import com.appimage.appimage.di.modules.MediatorsModule
 import com.appimage.arch.di.ViewModelFactoryModule
+import com.appimage.core.di.AndroidDependenciesComponent
 import com.appimage.core.di.providers.AndroidDependenciesProvider
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.core.di.qualifiers.ApplicationContext
@@ -16,12 +18,15 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
+    dependencies = [
+        AndroidDependenciesProvider::class,
+                   ],
     modules = [
         NetworkModule::class,
         MediatorsModule::class,
         MainFragmentContainerModule::class,
         StorageModule::class,
-        ViewModelFactoryModule::class
+        ViewModelFactoryModule::class,
     ]
 )
 interface AppComponent : ApplicationProvider {
@@ -29,19 +34,11 @@ interface AppComponent : ApplicationProvider {
     companion object {
 
         fun init(app: Application): AppComponent {
-            return DaggerAppComponent.factory()
-                .create(app)
+            val androidDependenciesComponent = AndroidDependenciesComponent.init(app)
+            return DaggerAppComponent.builder()
+                .androidDependenciesProvider(androidDependenciesComponent)
+                .build()
         }
-    }
-
-    @Component.Factory
-    interface Factory {
-
-        fun create(
-            @BindsInstance
-            @ApplicationContext
-            applicationContext: Application
-        ): AppComponent
     }
 
     fun inject(app: AppImageApp)

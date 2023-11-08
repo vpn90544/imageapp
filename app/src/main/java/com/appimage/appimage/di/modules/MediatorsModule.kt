@@ -8,5 +8,4 @@ import dagger.Module
         MainScreenMediatorModule::class
     ]
 )
-interface MediatorsModule {
-}
+interface MediatorsModule

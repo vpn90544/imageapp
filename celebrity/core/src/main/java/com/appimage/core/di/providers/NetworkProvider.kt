@@ -12,8 +12,8 @@ interface NetworkProvider {
 //    fun provideBaseUrl(): HttpUrl
 
 
-    @DefaultNetworkApi
-    fun provideRetrofit(): Retrofit
+//    @DefaultNetworkApi
+//    fun provideRetrofit(): Retrofit
 
 
 //    @DefaultNetworkApi

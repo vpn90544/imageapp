@@ -8,15 +8,24 @@ import com.appimage.core.di.providers.ApplicationProvider
 
 class AppImageApp:Application(), BaseApp {
 
-    private lateinit var appComponent: AppComponent
+    private var appComponent: AppComponent? = null
 
     override fun onCreate() {
+        appComponent = AppComponent.init(this).also { localAppComponent ->
+            localAppComponent.inject(this)
+            appComponent = localAppComponent
+        }
+        println("Компонент апп создан")
         super.onCreate()
-        appComponent = AppComponent.init(this)
     }
 
     override fun getApplicationProvider(): ApplicationProvider {
-        return appComponent
-    }
+        return appComponent ?: run {
+            AppComponent.init(this).also { localAppComponent ->
+                localAppComponent.inject(this)
+                appComponent = localAppComponent
+            }
+        }
 
+    }
 }

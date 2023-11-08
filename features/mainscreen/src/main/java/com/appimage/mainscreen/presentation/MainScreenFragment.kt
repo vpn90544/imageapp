@@ -3,6 +3,7 @@ package com.appimage.mainscreen.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.appimage.arch.fragment.BaseFragment
+import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.mainscreen.databinding.MainscreenlayoutBinding
 import com.appimage.mainscreen.presentation.di.MainScreenComponent
 
@@ -16,8 +17,8 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
         return MainscreenlayoutBinding.inflate(inflater, container, false)
     }
 
-    override fun injectFeatureComponent() {
-        MainScreenComponent.init().inject(this)
+    override fun injectFeatureComponent(applicationProvider: ApplicationProvider) {
+        MainScreenComponent.init(applicationProvider).inject(this)
     }
 
     companion object {
