@@ -1,7 +1,6 @@
 package com.appimage.arch.fragment
 
 import android.content.Context
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,13 +13,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.appimage.arch.di.ViewModelFactory
-import com.appimage.arch.uistate.UiState
+import com.appimage.arch.uistate.BaseUiState
 import com.appimage.arch.viewmodel.BaseViewModel
 import kotlinx.coroutines.flow.collectLatest
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 abstract class BaseFragment <
+        UiState : BaseUiState,
         ViewModel : BaseViewModel<UiState>,
         ViewBinding : androidx.viewbinding.ViewBinding
 > : Fragment(), DefaultLifecycleObserver {
@@ -33,8 +33,8 @@ abstract class BaseFragment <
     private var _viewBinding: ViewBinding? = null
     val viewBinding get() = requireNotNull(_viewBinding) { "Binding not initialized" }
 
-    private var _fragment: BaseFragment<ViewModel, ViewBinding>? = null
-    protected val fragment: BaseFragment<ViewModel, ViewBinding>
+    private var _fragment: BaseFragment<UiState,ViewModel, ViewBinding>? = null
+    protected val fragment: BaseFragment<UiState,ViewModel, ViewBinding>
         get() = _fragment!!
 
 //    protected val context: Context
@@ -52,7 +52,7 @@ abstract class BaseFragment <
 
     protected abstract fun getViewModelClass(): Class<ViewModel>
 
-    fun attach(fragment: BaseFragment<ViewModel, ViewBinding>) {
+    fun attach(fragment: BaseFragment<UiState, ViewModel, ViewBinding>) {
         _fragment = fragment
         _lifecycleObserver = object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) = this@BaseFragment.onCreate(owner)
@@ -77,7 +77,6 @@ abstract class BaseFragment <
 
     @CallSuper
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        postponeEnterTransition(0, TimeUnit.MILLISECONDS) // fix twitchy animation
         _viewBinding = createViewBinding(inflater, container)
         attach(this)
         return viewBinding.root

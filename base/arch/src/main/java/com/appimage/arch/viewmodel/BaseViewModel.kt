@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
 
-abstract class BaseViewModel <UiState : com.appimage.arch.uistate.UiState>( initialState : UiState )
+abstract class BaseViewModel <UiState : com.appimage.arch.uistate.BaseUiState>(initialState : UiState )
     : ViewModel() {
 
     private val mutableUiState = MutableStateFlow(initialState)
