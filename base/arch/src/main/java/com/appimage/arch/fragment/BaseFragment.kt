@@ -13,9 +13,9 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.appimage.arch.di.ViewModelFactory
 import com.appimage.arch.uistate.UiState
 import com.appimage.arch.viewmodel.BaseViewModel
-import com.appimage.core.di.viewmodel.MultiViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -25,7 +25,7 @@ abstract class BaseFragment <
         ViewBinding : androidx.viewbinding.ViewBinding
 > : Fragment(), DefaultLifecycleObserver {
     @Inject
-    lateinit var viewModelFactory: MultiViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     lateinit var viewModel: ViewModel
         private set

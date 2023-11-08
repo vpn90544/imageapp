@@ -4,6 +4,7 @@ import android.app.Application
 import com.appimage.appimage.app.AppImageApp
 import com.appimage.appimage.di.modules.MainFragmentContainerModule
 import com.appimage.appimage.di.modules.MediatorsModule
+import com.appimage.arch.di.ViewModelFactoryModule
 import com.appimage.core.di.providers.AndroidDependenciesProvider
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.core.di.qualifiers.ApplicationContext
@@ -20,6 +21,7 @@ import javax.inject.Singleton
         MediatorsModule::class,
         MainFragmentContainerModule::class,
         StorageModule::class,
+        ViewModelFactoryModule::class
     ]
 )
 interface AppComponent : ApplicationProvider {

@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    implementation project(":base:arch")
     implementation project(":celebrity:core")
     implementation project(":celebrity:network")
     implementation project(":celebrity:storage")
