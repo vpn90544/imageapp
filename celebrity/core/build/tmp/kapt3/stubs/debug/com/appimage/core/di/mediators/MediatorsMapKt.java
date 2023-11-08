@@ -1,5 +1,0 @@
-package com.appimage.core.di.mediators;
-
-@kotlin.Metadata(mv = {1, 8, 0}, k = 2, xi = 48, d1 = {"\u0000 \n\u0002\b\u0002\n\u0002\u0010\u0000\n\u0002\u0010$\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0003\u001a=\u0010\u0000\u001a\u0002H\u0001\"\n\b\u0000\u0010\u0001\u0018\u0001*\u00020\u0002*!\u0012\b\u0012\u0006\u0012\u0002\b\u00030\u0004\u0012\u000f\u0012\r\u0012\u0004\u0012\u00020\u00020\u0005\u00a2\u0006\u0002\b\u00060\u0003j\u0002`\u0007H\u0086\b\u00a2\u0006\u0002\u0010\b*@\u0010\t\"\u001d\u0012\b\u0012\u0006\u0012\u0002\b\u00030\u0004\u0012\u000f\u0012\r\u0012\u0004\u0012\u00020\u00020\u0005\u00a2\u0006\u0002\b\u00060\u00032\u001d\u0012\b\u0012\u0006\u0012\u0002\b\u00030\u0004\u0012\u000f\u0012\r\u0012\u0004\u0012\u00020\u00020\u0005\u00a2\u0006\u0002\b\u00060\u0003\u00a8\u0006\n"}, d2 = {"getMediator", "T", "", "", "Ljava/lang/Class;", "Ljavax/inject/Provider;", "Lkotlin/jvm/JvmSuppressWildcards;", "Lcom/appimage/core/di/mediators/MediatorsMap;", "(Ljava/util/Map;)Ljava/lang/Object;", "MediatorsMap", "core_debug"})
-public final class MediatorsMapKt {
-}
