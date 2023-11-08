@@ -53,6 +53,7 @@ abstract class BaseFragment <
     protected abstract fun getViewModelClass(): Class<ViewModel>
 
     fun attach(fragment: BaseFragment<UiState, ViewModel, ViewBinding>) {
+        injectFeatureComponent()
         _fragment = fragment
         _lifecycleObserver = object : DefaultLifecycleObserver {
             override fun onCreate(owner: LifecycleOwner) = this@BaseFragment.onCreate(owner)
@@ -104,4 +105,8 @@ abstract class BaseFragment <
 
     protected open fun handleUiState(uiState: UiState) {
     }
+
+    protected abstract fun injectFeatureComponent()
+
+    //protected abstract fun injectFeatureComponent(applicationProvider: ApplicationProvider)
 }

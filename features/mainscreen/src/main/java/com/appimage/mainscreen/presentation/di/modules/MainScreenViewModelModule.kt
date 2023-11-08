@@ -8,7 +8,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-interface MainViewModelModule {
+interface MainScreenViewModelModule {
 
     @[Binds IntoMap]
     @ViewModelKey(MainScreenViewModel::class)
