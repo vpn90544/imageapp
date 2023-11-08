@@ -2,7 +2,6 @@ package com.appimage.appimage.di
 
 import com.appimage.appimage.MainActivity
 import com.appimage.appimage.di.modules.MainActivityViewModelModule
-import com.appimage.appimage.di.modules.MediatorsModule
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.mainscreen_api.modules.MainScreenModule
 import dagger.Component
