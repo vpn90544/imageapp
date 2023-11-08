@@ -39,6 +39,8 @@ dependencies {
     implementation project(":celebrity:network")
     implementation project(":celebrity:storage")
 
+    implementation project(":features:mainscreen")
+
     implementation 'com.google.dagger:dagger:2.44'
     kapt 'com.google.dagger:dagger-compiler:2.44'
     kapt "com.google.dagger:dagger-android-processor:2.44"

@@ -5,15 +5,21 @@ import android.view.ViewGroup
 import com.appimage.arch.fragment.BaseFragment
 import com.appimage.mainscreen.databinding.MainscreenlayoutBinding
 
-class MainFragment: BaseFragment< MainUiState, MainViewModel, MainscreenlayoutBinding>() {
+class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, MainscreenlayoutBinding>() {
 
-    override fun getViewModelClass(): Class<MainViewModel> {
-        return MainViewModel::class.java
+    override fun getViewModelClass(): Class<MainScreenViewModel> {
+        return MainScreenViewModel::class.java
     }
 
     override fun createViewBinding(inflater: LayoutInflater, container: ViewGroup?): MainscreenlayoutBinding {
         return MainscreenlayoutBinding.inflate(inflater, container, false)
     }
 
+    companion object {
+
+        fun newInstance(): MainScreenFragment {
+            return MainScreenFragment()
+        }
+    }
 
 }
