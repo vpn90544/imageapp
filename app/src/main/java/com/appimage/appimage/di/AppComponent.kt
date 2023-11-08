@@ -11,11 +11,10 @@ import com.appimage.network.di.modules.NetworkModule
 import com.appimage.storage.modules.StorageModule
 import dagger.BindsInstance
 import dagger.Component
+import javax.inject.Singleton
 
+@Singleton
 @Component(
-//    dependencies = [
-//        AndroidDependenciesProvider::class
-//    ],
     modules = [
         NetworkModule::class,
         MediatorsModule::class,

@@ -4,11 +4,12 @@ import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.appimage.core.di.BaseDb
 import com.appimage.storage.modules.dao.DaoDb
 import com.appimage.storage.modules.dto.EntityDB
 
 @Database(version = 1, entities = [EntityDB::class], exportSchema = false)
-abstract class AppDataBase : RoomDatabase() {
+abstract class AppDataBase : RoomDatabase(),BaseDb {
     abstract fun getDao(): DaoDb
 
     companion object {
