@@ -87,8 +87,8 @@ abstract class BaseFragment <
         return viewBinding.root
     }
 
-    override fun onResume() {
-        super<Fragment>.onResume()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
     }
 
