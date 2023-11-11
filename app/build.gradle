@@ -45,6 +45,8 @@ dependencies {
 
     implementation project(":features:mainscreen")
     implementation project(":api:mainscreen_api")
+    implementation project(":api:all_image_screen_api")
+    implementation project(":api:like_image_screen_api")
 
     implementation 'com.google.dagger:dagger:2.44'
     kapt 'com.google.dagger:dagger-compiler:2.44'
