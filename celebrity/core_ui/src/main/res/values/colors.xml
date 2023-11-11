@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="default_color">#005AFE</color>
+    <!-- Category items colors -->
+    <color name="category_active_main_container">#005AFE</color>
+    <color name="category_active_main_text">#F5F5F5</color>
+    <color name="category_active_count_container">#FEFEFE</color>
+    <color name="category_active_count_text">#001A34</color>
+    <color name="category_disable_main_container">#D8DFEA</color>
+    <color name="category_disable_main_text">#001A34</color>
+    <color name="category_disable_count_container">#005AFE</color>
+    <color name="category_disable_count_text">#F5F5F5</color>
+
+</resources>
