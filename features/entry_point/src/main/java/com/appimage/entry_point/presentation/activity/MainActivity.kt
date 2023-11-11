@@ -4,17 +4,21 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.fragment.app.Fragment
 import com.appimage.arch.di.ViewModelFactory
 import com.appimage.core.BaseApp
-import com.appimage.entry_point.R
+import com.appimage.core.di.qualifiers.MainFragmentContainer
 import com.appimage.entry_point.databinding.ActivityMainBinding
 import com.appimage.entry_point.di.MainActivityComponent
+import com.appimage.utils.navigation.safelyAddFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    //private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    //@Inject
-    //lateinit var mainScreenMediator: MainScreenMediator
+
+    @JvmField
+    @field:[Inject MainFragmentContainer]
+    var mainFragmentContainer: Int = 0
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var binding: ActivityMainBinding
@@ -30,16 +34,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //viewModel = ViewModelProvider(this, viewModelFactory)[MainActivityViewModel::class.java]
+        viewModel.showMainScreen {
+            beginTransaction(it)
+        }
+    }
 
-
-
-        viewModel.getNExtNAv({
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.main_fragment_container,it)
-                .commit()
-
-        })
-
+    private fun beginTransaction(fragment: Fragment) {
+        supportFragmentManager.safelyAddFragment(
+            context = this,
+            mainFragmentContainer,
+            fragment,
+            addToBackStack = false,
+            clearBackStack = false
+        )
     }
 }

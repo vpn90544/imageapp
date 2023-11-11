@@ -10,7 +10,7 @@ class MainActivityViewModel @Inject constructor(
 )
     : BaseViewModel<com.appimage.entry_point.presentation.state.MainActState>(initialState = com.appimage.entry_point.presentation.state.MainActState()) {
 
-        fun getNExtNAv(action: (Fragment) -> Unit){
+        fun showMainScreen(action: (Fragment) -> Unit){
             mainScreenMediator.showMainScreenFragment(action)
         }
     }
