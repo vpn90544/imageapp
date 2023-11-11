@@ -10,6 +10,7 @@ import com.appimage.core.BaseApp
 import com.appimage.core.di.qualifiers.MainFragmentContainer
 import com.appimage.entry_point.databinding.ActivityMainBinding
 import com.appimage.entry_point.di.MainActivityComponent
+import com.appimage.entry_point.presentation.viewmodel.MainActivityViewModel
 import com.appimage.utils.navigation.safelyAddFragment
 import javax.inject.Inject
 
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     lateinit var binding: ActivityMainBinding
-    private val viewModel: com.appimage.entry_point.presentation.viewmodel.MainActivityViewModel by viewModels { viewModelFactory }
+    private val viewModel: MainActivityViewModel by viewModels { viewModelFactory }
 
     override fun attachBaseContext(newBase: Context) {
         super.attachBaseContext(newBase)
