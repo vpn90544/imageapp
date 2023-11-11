@@ -44,6 +44,8 @@ dependencies {
     implementation project(":features:entry_point")
 
     implementation project(":features:mainscreen")
+    implementation project(":features:all_image_screen")
+    implementation project(":features:like_image_screen")
     implementation project(":api:mainscreen_api")
     implementation project(":api:all_image_screen_api")
     implementation project(":api:like_image_screen_api")

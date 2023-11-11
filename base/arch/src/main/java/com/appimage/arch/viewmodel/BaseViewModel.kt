@@ -14,7 +14,7 @@ abstract class BaseViewModel <UiState : com.appimage.arch.uistate.BaseUiState>(i
     private val mutableUiState = MutableStateFlow(initialState)
     val uiState = mutableUiState.asSharedFlow()
 
-    private var navigator: Navigator? = null
+    protected var navigator: Navigator? = null
     protected var isInitialized = false
         private set
 

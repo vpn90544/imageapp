@@ -46,6 +46,8 @@ dependencies {
     implementation project(":celebrity:core_ui")
     implementation project(":celebrity:utils")
     implementation project(':api:mainscreen_api')
+    implementation project(':api:all_image_screen_api')
+    implementation project(':api:like_image_screen_api')
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

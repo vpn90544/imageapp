@@ -26,6 +26,7 @@ class LikeImageScreenFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        println("FRAGMENT LIKE IMAGE Создане")
         //setSettingRecycler()
     }
 
