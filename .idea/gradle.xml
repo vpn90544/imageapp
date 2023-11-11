@@ -11,6 +11,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/api" />
+            <option value="$PROJECT_DIR$/api/all_image_screen_api" />
+            <option value="$PROJECT_DIR$/api/like_image_screen_api" />
             <option value="$PROJECT_DIR$/api/mainscreen_api" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/base" />
