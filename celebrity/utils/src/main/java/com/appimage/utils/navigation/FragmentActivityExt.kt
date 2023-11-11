@@ -1,4 +1,4 @@
-package com.appimage.utils
+package com.appimage.utils.navigation
 
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment

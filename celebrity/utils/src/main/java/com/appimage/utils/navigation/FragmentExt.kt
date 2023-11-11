@@ -1,4 +1,4 @@
-package com.appimage.utils
+package com.appimage.utils.navigation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

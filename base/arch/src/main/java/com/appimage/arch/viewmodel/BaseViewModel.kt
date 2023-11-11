@@ -2,9 +2,8 @@ package com.appimage.arch.viewmodel
 
 import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ReportFragment
 import androidx.lifecycle.ViewModel
-import com.appimage.utils.Navigate
+import com.appimage.utils.navigation.Navigator
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.update
@@ -15,7 +14,7 @@ abstract class BaseViewModel <UiState : com.appimage.arch.uistate.BaseUiState>(i
     private val mutableUiState = MutableStateFlow(initialState)
     val uiState = mutableUiState.asSharedFlow()
 
-    private var navigator:Navigate? = null
+    private var navigator: Navigator? = null
     protected var isInitialized = false
         private set
 
@@ -27,7 +26,7 @@ abstract class BaseViewModel <UiState : com.appimage.arch.uistate.BaseUiState>(i
     }
 
     internal fun setNavigator(fragment: Fragment) {
-        navigator = Navigate(fragment)
+        navigator = Navigator(fragment)
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)

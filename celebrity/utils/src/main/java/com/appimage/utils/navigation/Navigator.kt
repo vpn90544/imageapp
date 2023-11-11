@@ -1,10 +1,10 @@
-package com.appimage.utils
+package com.appimage.utils.navigation
 
 import android.os.Bundle
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 
-class Navigate(
+class Navigator(
     private val sourceFragment: Fragment,
 ) {
 

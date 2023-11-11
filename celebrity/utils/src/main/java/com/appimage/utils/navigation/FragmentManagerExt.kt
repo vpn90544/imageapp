@@ -1,4 +1,4 @@
-package com.appimage.utils
+package com.appimage.utils.navigation
 
 import android.content.Context
 import android.os.Bundle
