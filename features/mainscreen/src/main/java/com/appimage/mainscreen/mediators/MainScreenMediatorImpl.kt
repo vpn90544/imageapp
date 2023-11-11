@@ -1,4 +1,4 @@
-package com.appimage.mainscreen.presentation.mediators
+package com.appimage.mainscreen.mediators
 
 import androidx.fragment.app.Fragment
 import com.appimage.mainscreen.presentation.MainScreenFragment

@@ -1,10 +1,9 @@
-package com.appimage.mainscreen.presentation.di
+package com.appimage.mainscreen.di
 
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.core.di.scopes.FeatureScope
+import com.appimage.mainscreen.di.modules.MainScreenViewModelModule
 import com.appimage.mainscreen.presentation.MainScreenFragment
-import com.appimage.mainscreen.presentation.MainScreenViewModel
-import com.appimage.mainscreen.presentation.di.modules.MainScreenViewModelModule
 import dagger.Component
 
 @FeatureScope

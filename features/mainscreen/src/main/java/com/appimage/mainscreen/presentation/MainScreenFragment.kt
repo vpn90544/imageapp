@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appimage.arch.fragment.BaseFragment
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.core_ui.view.category.CategoryDelegateAdapter
 import com.appimage.mainscreen.databinding.MainscreenlayoutBinding
-import com.appimage.mainscreen.presentation.di.MainScreenComponent
+import com.appimage.mainscreen.di.MainScreenComponent
 import com.appimage.utils.adapter.CompositeAdapter
 import com.appimage.utils.adapter.decorator.DecoratorParams
 import com.appimage.utils.adapter.decorator.ItemsDecorator

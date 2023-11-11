@@ -1,4 +1,4 @@
-package com.appimage.mainscreen.presentation.di.modules
+package com.appimage.mainscreen.di.modules
 
 import dagger.Module
 import dagger.Provides

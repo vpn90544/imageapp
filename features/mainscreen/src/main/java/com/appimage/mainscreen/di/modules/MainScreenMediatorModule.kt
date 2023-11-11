@@ -1,7 +1,7 @@
-package com.appimage.mainscreen.presentation.di.modules
+package com.appimage.mainscreen.di.modules
 
 import com.appimage.core.di.qualifiers.MediatorsQualifier
-import com.appimage.mainscreen.presentation.mediators.MainScreenMediatorImpl
+import com.appimage.mainscreen.mediators.MainScreenMediatorImpl
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
