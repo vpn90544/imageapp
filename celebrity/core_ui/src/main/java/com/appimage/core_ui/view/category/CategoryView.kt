@@ -70,6 +70,7 @@ class CategoryView @JvmOverloads constructor(
     }
 
     override fun populate(model: CategoryViewModel) {
+        setLayoutParam()
         setStyle(model.isActive)
         setCategoryName(model.nameCategory)
         setCategoryNameColor()
@@ -83,7 +84,14 @@ class CategoryView @JvmOverloads constructor(
         setCountBackgroundColor()
     }
 
-    fun setIsActivateState(model: CategoryViewModel) {
+    private fun setLayoutParam() {
+        categoryViewBinding.mainContainer.layoutParams = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.WRAP_CONTENT
+        )
+    }
+
+    internal fun setIsActivateState(model: CategoryViewModel) {
         setStyle(model.isActive)
         setCategoryNameColor()
         setCategoryCountColor()
@@ -139,7 +147,7 @@ class CategoryView @JvmOverloads constructor(
             .build()
     }
 
-    fun setCategoryName(nameCategory: String) {
+    internal fun setCategoryName(nameCategory: String) {
         categoryViewBinding.categoryName.text = nameCategory
     }
 
@@ -147,7 +155,7 @@ class CategoryView @JvmOverloads constructor(
         categoryViewBinding.categoryName.setTextColor(mainTextColor)
     }
 
-    fun setCategoryCount(countInCategory: Int) {
+    internal fun setCategoryCount(countInCategory: Int) {
         if (countInCategory == DEFAULT_VALUE_FOR_COUNT) {
             categoryViewBinding.countContainer.visibility = View.GONE
         } else {

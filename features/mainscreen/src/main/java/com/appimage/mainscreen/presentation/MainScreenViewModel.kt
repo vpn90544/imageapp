@@ -5,4 +5,8 @@ import javax.inject.Inject
 
 class MainScreenViewModel @Inject constructor() : BaseViewModel<MainUiState>(initialState = MainUiState()) {
 
+    override fun bootstrap() {
+        super.bootstrap()
+    }
+
 }
