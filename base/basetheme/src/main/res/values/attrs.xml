@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BaseMyTheme">
+        <attr format="reference" name="defaultTransitionEnter" />
+        <attr format="reference" name="defaultTransitionExit" />
+        <attr format="reference" name="defaultTransitionPopEnter" />
+        <attr format="reference" name="defaultTransitionPopExit" />
+        <attr format="color" name="colorCardStandardColorBackground" />
+        <attr format="color" name="colorCardBlurredColorBackground" />
+
+    </declare-styleable>
+
+    <declare-styleable name="NumPadStyle">
+        <attr format="reference" name="default_num_pad_style" />
+    </declare-styleable>
+
+    <declare-styleable name="NumberPad">
+        <attr format="integer" name="pin_length" />
+    </declare-styleable>
+</resources>

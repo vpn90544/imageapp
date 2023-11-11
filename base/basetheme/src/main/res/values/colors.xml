@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //day theme
+    <color name="yellow_A700">#FFD600</color>
+    <color name="yellow_A700_transparent">#40FFD600</color>
+    <color name="yellow_600">#FED532</color>
+    <color name="yellow_300">#FFF176</color>
+    <color name="yellow_200">#FFE071</color>
+    <color name="yellow_100">#FFF9C4</color>
+    <color name="gray_1100">#808084</color>
+    <color name="gray_1000">#FAFAFA</color>
+    <color name="gray_900">#212121</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="grey_450">#BCBCBC</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_350">#BCBCBC</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_150">#F6F6F6</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_50">#F2F2F7</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="semi_transparent">#80FFFFFF</color>
+    <color name="error_transparent_12">#1FF2453D</color>
+    <color name="error">#F2453D</color>
+    <color name="red_500">#F44336</color>
+    <color name="red_100">#1C274C</color>
+    <color name="red_900">#B00020</color>
+    <color name="blue_500">#4054B2</color>
+    <color name="blue_100">#1C274C</color>
+    <color name="green_100">#4CAF50</color>
+    <color name="orange">#FFBB33</color>
+    <color name="yellow_50">#FFFDE7</color>
+    <color name="black_100">#1F1F1F</color>
+
+    //night theme
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+
+</resources>

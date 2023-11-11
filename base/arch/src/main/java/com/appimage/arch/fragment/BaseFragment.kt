@@ -88,6 +88,11 @@ abstract class BaseFragment <
         return viewBinding.root
     }
 
+    override fun onResume() {
+        super<Fragment>.onResume()
+        viewModel.setNavigator(this)
+    }
+
     fun detach() {
         fragment.viewLifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
         _lifecycleObserver = null
