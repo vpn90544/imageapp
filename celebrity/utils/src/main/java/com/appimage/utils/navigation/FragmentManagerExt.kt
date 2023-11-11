@@ -49,7 +49,6 @@ fun FragmentManager.safelyAddFragment(
                 animationAttrs?.get(3) ?: getResourceId(3, 0),
             )
         }
-        fragments.lastOrNull()?.let { hide(it) }
         replace(containerViewId, fragment, fragment::class.java.canonicalName)
         if (addToBackStack) {
             addToBackStack(fragment::class.java.canonicalName)
