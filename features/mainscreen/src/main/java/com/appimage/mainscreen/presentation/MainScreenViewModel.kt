@@ -1,6 +1,7 @@
 package com.appimage.mainscreen.presentation
 
 import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
 import com.appimage.all_image_screen_api.mediators.AllImageScreenMediator
 import com.appimage.arch.viewmodel.BaseViewModel
 import com.appimage.like_image_screen_api.mediators.LikeImageScreenMediator
@@ -15,15 +16,7 @@ class MainScreenViewModel @Inject constructor(
         super.bootstrap()
     }
 
-    fun navigateToAllImageScreen(@IdRes containerViewId: Int) {
-        allImageScreenMediator.showAllImageScreenFragment {
-            navigator?.navigate(containerViewId, it)
-        }
-    }
-
-    fun navigateToLikeImageScreen(@IdRes containerViewId: Int) {
-        likeImageScreenMediator.showLikeImageScreenFragment {
-            navigator?.navigate(containerViewId, it)
-        }
+    fun showLikeScreen(action: (Fragment) -> Unit){
+        likeImageScreenMediator.showLikeImageScreenFragment { action }
     }
 }

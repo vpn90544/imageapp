@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appimage.arch.fragment.BaseFragment
 import com.appimage.core.di.providers.ApplicationProvider
+import com.appimage.core.di.qualifiers.MainFragmentContainer
 import com.appimage.core_ui.view.category.CategoryDelegateAdapter
 import com.appimage.mainscreen.R
 import com.appimage.mainscreen.databinding.MainscreenlayoutBinding
@@ -16,6 +17,7 @@ import com.appimage.utils.adapter.CompositeAdapter
 import com.appimage.utils.adapter.decorator.DecoratorParams
 import com.appimage.utils.adapter.decorator.ItemsDecorator
 import com.appimage.utils.navigation.Navigator
+import com.appimage.utils.navigation.safelyAddFragment
 
 class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, MainscreenlayoutBinding>() {
 
@@ -28,7 +30,14 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSettingRecycler()
-        viewModel.navigateToLikeImageScreen(R.id.fragment_container)
+
+        viewModel.showLikeScreen{
+            //Navigator(this).parentNavigate(R.id.fragment_container,it)
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container,it)
+                .commit()
+        }
+
     }
 
     private fun setSettingRecycler() {
