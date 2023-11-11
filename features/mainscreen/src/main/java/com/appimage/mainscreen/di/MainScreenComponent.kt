@@ -4,6 +4,7 @@ import com.appimage.all_image_screen_api.modules.AllImageScreenModule
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.core.di.scopes.FeatureScope
 import com.appimage.like_image_screen_api.modules.LikeImageScreenModule
+import com.appimage.mainscreen.di.modules.MainContentFragmentContainerModule
 import com.appimage.mainscreen.di.modules.MainScreenViewModelModule
 import com.appimage.mainscreen.presentation.MainScreenFragment
 import dagger.Component
@@ -16,7 +17,8 @@ import dagger.Component
     modules = [
         MainScreenViewModelModule::class,
         AllImageScreenModule::class,
-        LikeImageScreenModule::class
+        LikeImageScreenModule::class,
+        MainContentFragmentContainerModule::class
     ]
 )
 interface MainScreenComponent {
