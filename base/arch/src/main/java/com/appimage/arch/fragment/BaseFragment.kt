@@ -18,7 +18,6 @@ import com.appimage.arch.viewmodel.BaseViewModel
 import com.appimage.core.BaseApp
 import com.appimage.core.di.providers.ApplicationProvider
 import kotlinx.coroutines.flow.collectLatest
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 abstract class BaseFragment <
