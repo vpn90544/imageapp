@@ -26,7 +26,9 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
 
     private val compositeAdapter by lazy {
         CompositeAdapter.Builder()
-            .add(CategoryDelegateAdapter())
+            .add(CategoryDelegateAdapter {
+                viewModel.clickCategory(it)
+            })
             .build()
     }
 
@@ -34,7 +36,7 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
         super.onViewCreated(view, savedInstanceState)
         setSettingRecycler()
 
-        viewModel.navigateToLikeImages(mainFragmentContainer)
+        //viewModel.navigateToLikeImages()
 
     }
 
@@ -57,10 +59,7 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
     override fun handleUiState(uiState: MainUiState) {
         super.handleUiState(uiState)
         compositeAdapter.submitList(
-            listOf(
-                uiState.category1,
-                uiState.category2
-            )
+                uiState.listCategory
         )
     }
 

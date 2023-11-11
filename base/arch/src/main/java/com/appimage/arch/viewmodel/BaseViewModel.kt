@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.update
 abstract class BaseViewModel <UiState : BaseUiState>(initialState : UiState )
     : ViewModel() {
 
-    private val mutableUiState = MutableStateFlow(initialState)
+    protected val mutableUiState = MutableStateFlow(initialState)
     val uiState = mutableUiState.asSharedFlow()
 
     protected var navigator: Navigator? = null
