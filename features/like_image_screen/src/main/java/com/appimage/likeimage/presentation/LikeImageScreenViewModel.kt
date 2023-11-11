@@ -1,4 +1,9 @@
 package com.appimage.likeimage.presentation
 
-class LikeImageScreenViewModel {
+import com.appimage.arch.viewmodel.BaseViewModel
+import javax.inject.Inject
+
+class LikeImageScreenViewModel @Inject constructor()
+    : BaseViewModel<LikeImageScreenState>(initialState = LikeImageScreenState()) {
+
 }

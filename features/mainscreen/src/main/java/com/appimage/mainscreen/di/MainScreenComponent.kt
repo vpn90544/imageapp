@@ -13,8 +13,6 @@ import dagger.Component
     ],
     modules = [
         MainScreenViewModelModule::class
-//        MainScreenRepositoryModule::class,
-//        AccountEditScreenModule::class
     ]
 )
 interface MainScreenComponent {
