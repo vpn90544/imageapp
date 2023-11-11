@@ -17,8 +17,7 @@ import dagger.Component
     modules = [
         MainScreenViewModelModule::class,
         AllImageScreenModule::class,
-        LikeImageScreenModule::class,
-        MainContentFragmentContainerModule::class
+        LikeImageScreenModule::class
     ]
 )
 interface MainScreenComponent {
