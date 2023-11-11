@@ -74,7 +74,7 @@ abstract class BaseFragment <
     override fun onAttach(context: Context) {
         injectFeatureComponent(getApplicationProvider(context))
         viewModel = ViewModelProvider(this, viewModelFactory)[getViewModelClass()]
-        viewModel.initialize()
+
         super.onAttach(context)
     }
 
@@ -90,6 +90,7 @@ abstract class BaseFragment <
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.setNavigator(this)
+        viewModel.initialize()
     }
 
     fun detach() {
