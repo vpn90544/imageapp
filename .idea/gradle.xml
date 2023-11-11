@@ -23,7 +23,9 @@
             <option value="$PROJECT_DIR$/celebrity/storage" />
             <option value="$PROJECT_DIR$/celebrity/utils" />
             <option value="$PROJECT_DIR$/features" />
+            <option value="$PROJECT_DIR$/features/all_image" />
             <option value="$PROJECT_DIR$/features/entry_point" />
+            <option value="$PROJECT_DIR$/features/like_image" />
             <option value="$PROJECT_DIR$/features/mainscreen" />
           </set>
         </option>
