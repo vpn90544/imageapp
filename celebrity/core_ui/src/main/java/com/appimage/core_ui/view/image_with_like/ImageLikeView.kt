@@ -51,7 +51,6 @@ class ImageLikeView @JvmOverloads constructor(
         imageLikeViewBinding.mainContainer.layoutParams = LayoutParams(
             LayoutParams.MATCH_PARENT,
             resources.displayMetrics.heightPixels/4
-            //LayoutParams.WRAP_CONTENT
         )
     }
 
