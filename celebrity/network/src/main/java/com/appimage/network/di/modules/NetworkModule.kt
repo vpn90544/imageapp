@@ -11,28 +11,28 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-const val BASE_URL = "http://172.17.1.37:8080"
+const val BASE_URL = "https://rickandmortyapi.com/api/character/"
 
 @Module
 object NetworkModule {
 
-//    @Provides
-//    @Singleton
-//    @DefaultNetworkApi
-//    fun provideBaseUrl(): HttpUrl {
-//        return BASE_URL.toHttpUrl()
-//    }
+    @Provides
+    @Singleton
+    @DefaultNetworkApi
+    fun provideBaseUrl(): HttpUrl {
+        return BASE_URL.toHttpUrl()
+    }
 
 
     @Provides
     @Singleton
     @DefaultNetworkApi
     fun provideRetrofit(
-        //@DefaultNetworkApi baseUrl: HttpUrl,
+        @DefaultNetworkApi baseUrl: HttpUrl,
         @DefaultNetworkApi gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://172.17.1.37:8080")
+            .baseUrl(baseUrl)
             .addConverterFactory(gsonConverterFactory)
             .build()
     }
