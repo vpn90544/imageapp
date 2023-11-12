@@ -9,6 +9,7 @@ import com.appimage.core_ui.R
 import com.appimage.core_ui.databinding.ImageLikeViewBinding
 import com.appimage.core_ui.view.Populatable
 import com.appimage.core_ui.view.category.CategoryView
+import com.appimage.core_ui.view.category.CategoryView.Companion.CORNER_MAIN_CONTAINER_DP
 import com.appimage.utils.dpToPx
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
@@ -31,6 +32,10 @@ class ImageLikeView @JvmOverloads constructor(
         inflater.inflate(R.layout.image_like_view, this, true)
         imageLikeViewBinding = ImageLikeViewBinding.bind(this)
         mainContainerColor = context.getColorStateList(R.color.image_like_main_container)
+    }
+
+    companion object {
+        const val CORNER_COUNT_CONTAINER_DP = 16
     }
 
     override fun populate(model: ImageLikeViewModel) {
@@ -67,7 +72,7 @@ class ImageLikeView @JvmOverloads constructor(
 
     private fun setMainBackground() {
         imageLikeViewBinding.mainContainer.background = MaterialShapeDrawable(
-            getDrawableBackgroundWithAllCorner(CategoryView.CORNER_MAIN_CONTAINER_DP)
+            getDrawableBackgroundWithAllCorner(CORNER_MAIN_CONTAINER_DP)
         )
     }
 
