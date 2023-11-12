@@ -1,9 +1,8 @@
 package com.appimage.mainscreen.presentation
 
-import android.icu.util.ULocale.Category
 import com.appimage.all_image_screen_api.mediators.AllImageScreenMediator
 import com.appimage.arch.viewmodel.BaseViewModel
-import com.appimage.core.di.qualifiers.MainContentFragmentContainer
+import com.appimage.core.di.qualifiers.ContentFragmentContainer
 import com.appimage.core_ui.view.category.CategoryView
 import com.appimage.core_ui.view.category.CategoryViewModel
 import com.appimage.like_image_screen_api.mediators.LikeImageScreenMediator
@@ -13,7 +12,7 @@ import javax.inject.Inject
 class MainScreenViewModel @Inject constructor(
     private val allImageScreenMediator: AllImageScreenMediator,
     private val likeImageScreenMediator: LikeImageScreenMediator,
-    @MainContentFragmentContainer
+    @ContentFragmentContainer
     private val contentContainerId: Int
 ) : BaseViewModel<MainUiState>(initialState = MainUiState()) {
 

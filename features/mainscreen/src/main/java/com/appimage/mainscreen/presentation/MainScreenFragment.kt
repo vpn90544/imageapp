@@ -8,9 +8,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appimage.arch.fragment.BaseFragment
 import com.appimage.core.di.providers.ApplicationProvider
-import com.appimage.core.di.qualifiers.MainContentFragmentContainer
+import com.appimage.core.di.qualifiers.ContentFragmentContainer
 import com.appimage.core_ui.view.category.CategoryDelegateAdapter
-import com.appimage.mainscreen.R
 import com.appimage.mainscreen.databinding.MainscreenlayoutBinding
 import com.appimage.mainscreen.di.MainScreenComponent
 import com.appimage.utils.adapter.CompositeAdapter
@@ -19,10 +18,6 @@ import com.appimage.utils.adapter.decorator.ItemsDecorator
 import javax.inject.Inject
 
 class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, MainscreenlayoutBinding>() {
-
-    @JvmField
-    @field:[Inject MainContentFragmentContainer]
-    var mainFragmentContainer: Int = 0
 
     private val compositeAdapter by lazy {
         CompositeAdapter.Builder()
@@ -35,9 +30,6 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSettingRecycler()
-
-        //viewModel.navigateToLikeImages()
-
     }
 
     private fun setSettingRecycler() {

@@ -4,6 +4,6 @@ interface ApplicationProvider :
     AndroidDependenciesProvider,
     NetworkProvider,
     MediatorsProvider,
-    MainActivityContainerProvider,
+    MainFragmentContainerProvider,
     StorageProvider,
-    MainContentFragmentContainerProvider
+    ContentFragmentContainerProvider

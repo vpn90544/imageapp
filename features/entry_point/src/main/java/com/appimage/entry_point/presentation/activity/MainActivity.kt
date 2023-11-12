@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import com.appimage.arch.di.ViewModelFactory
 import com.appimage.core.BaseApp
-import com.appimage.core.di.qualifiers.MainActivityContainer
+import com.appimage.core.di.qualifiers.MainFragmentContainer
 import com.appimage.entry_point.databinding.ActivityMainBinding
 import com.appimage.entry_point.di.MainActivityComponent
 import com.appimage.entry_point.presentation.viewmodel.MainActivityViewModel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @JvmField
-    @field:[Inject MainActivityContainer]
+    @field:[Inject MainFragmentContainer]
     var mainFragmentContainer: Int = 0
 
     @Inject
