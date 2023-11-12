@@ -54,7 +54,6 @@ dependencies {
 
     implementation project(":base:arch")
     implementation project(":celebrity:core")
-    implementation project(":celebrity:storage")
     implementation project(":celebrity:core_ui")
     implementation project(":celebrity:utils")
     implementation project(':api:all_image_screen_api')

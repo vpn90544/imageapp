@@ -16,7 +16,7 @@ object StorageModule {
     @Provides
     @Singleton
     @DefaultDbQualifier
-    fun provideAppDataBase(@ApplicationContext context: Application): AppDataBase {
+    fun provideAppDataBase(@ApplicationContext context: Application): BaseDb {
         return AppDataBase.getAppDataBase(context)
     }
 }
