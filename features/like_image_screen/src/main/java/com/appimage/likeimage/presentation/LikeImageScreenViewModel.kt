@@ -23,7 +23,6 @@ class LikeImageScreenViewModel @Inject constructor(
     }
     internal fun clickLikeOrUnLikeImage(clickItem: ImageLikeViewModel) {
         val images = mutableUiState.value.list
-        val updateImages = ArrayList<DelegateItem>()
         for (item in images) {
             if (item is ImageLikeViewModel) {
                 if (item.id == clickItem.id) {
@@ -31,9 +30,6 @@ class LikeImageScreenViewModel @Inject constructor(
                     delLikeImage(changeItem)
                 }
             }
-        }
-        updateState { state->
-            state.copy(list = updateImages)
         }
     }
 
@@ -47,8 +43,9 @@ class LikeImageScreenViewModel @Inject constructor(
     internal fun updateImageFromDb(){
         viewModelScope.launch (Dispatchers.IO) {
             val updateList = repository.getAllLikeImages()
+            val mappedUpdateList = mapperLikeImages.mapToListViewModels(updateList)
             updateState { state->
-                state.copy(list = mapperLikeImages.mapToListViewModels(updateList))
+                state.copy(list = mappedUpdateList)
             }
         }
     }
