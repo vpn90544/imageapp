@@ -10,12 +10,11 @@ import com.appimage.allimage.databinding.AllImageLayoutBinding
 import com.appimage.allimage.di.AllImageScreenComponent
 import com.appimage.arch.fragment.BaseFragment
 import com.appimage.core.di.providers.ApplicationProvider
-import com.appimage.core_ui.view.category.CategoryDelegateAdapter
 import com.appimage.core_ui.view.image_with_like.ImageLikeDelegateAdapter
-import com.appimage.core_ui.view.image_with_like.ImageLikeViewModel
 import com.appimage.utils.adapter.CompositeAdapter
 import com.appimage.utils.adapter.decorator.DecoratorParams
 import com.appimage.utils.adapter.decorator.ItemsDecorator
+import com.appimage.utils.listeners.setScrollListenerForPaginationInRecycler
 
 class AllImageScreenFragment
     : BaseFragment<AllImageScreenState, AllImageScreenViewModel, AllImageLayoutBinding>() {
@@ -48,6 +47,20 @@ class AllImageScreenFragment
                 )
             )
         )
+        viewBinding.recyclerView.setScrollListenerForPaginationInRecycler(
+            viewBinding.progressRefresh,
+            viewBinding.progressLoading,
+            actionForRefresh = {pullToRefresh()},
+            actionForLoading = { loadNextPage()}
+
+        )
+    }
+
+    fun pullToRefresh(){
+        viewModel.pullToRefresh()
+    }
+    fun loadNextPage(){
+        viewModel.loadNextPage()
     }
     override fun handleUiState(uiState: AllImageScreenState) {
         super.handleUiState(uiState)
@@ -55,10 +68,11 @@ class AllImageScreenFragment
             uiState.list
         )
         if (uiState.isRefresh) {
-
-        } else {}
-        if (uiState.isLoadingNewPage) {} else {}
-
+            viewBinding.progressRefresh.visibility = View.VISIBLE
+        } else viewBinding.progressRefresh.visibility = View.GONE
+        if (uiState.isLoadingNewPage) {
+            viewBinding.progressLoading.visibility = View.VISIBLE
+        } else {viewBinding.progressLoading.visibility = View.GONE}
     }
 
     companion object {

@@ -13,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 class AllImageScreenViewModel @Inject constructor(
@@ -26,12 +25,12 @@ class AllImageScreenViewModel @Inject constructor(
     override fun bootstrap() {
         super.bootstrap()
         viewModelScope.launch (Dispatchers.IO){
-            getDefaultLoadImages()
+            getDefaultLoadImagesFromWeb()
         }
     }
 
     @SuppressLint("SuspiciousIndentation")
-    private suspend fun getDefaultLoadImages(): ImagesInfoPage {
+    private suspend fun getDefaultLoadImagesFromWeb(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
             viewModelScope.launch {
                 repository.getLoadDefaultImagesFromWeb()
@@ -40,12 +39,38 @@ class AllImageScreenViewModel @Inject constructor(
                     result.info?.next?.let {
                         updateUrlNextPage(it)
                     }
+                        endLoadingRefresh()
+                        updateState { state->
+                            state.copy(isRefresh = false)
+                        }
                 val mapList = mapperAllImages.mapEntityWebToViewModels(result)
                         changeLoadItemsWebWithLikeDbItemsAndUpdate(mapList)
                         println(repository.getLoadAllImagesFromWeb().size)
                 }.onFailure {
                     getLoadAllImagesFromDb()
+                    endLoadingRefresh()
                 }
+            }
+        }
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private suspend fun getNewLoadImagesWeb(urlNextPage: String): ImagesInfoPage {
+        return suspendCoroutine { continuation ->
+            viewModelScope.launch {
+                repository.getLoadNewImagesFromWeb(urlNextPage)
+                    .onSuccess { result ->
+                        continuation.resume(result)
+                        result.info?.next?.let {
+                            updateUrlNextPage(it)
+                        }
+                        endLoadingNewPage()
+                        val mapList = mapperAllImages.mapEntityWebToViewModels(result)
+                        changeLoadItemsWebWithLikeDbItemsAndUpdate(mapList,true)
+                        println(repository.getLoadAllImagesFromWeb().size)
+                    }.onFailure {
+                        endLoadingNewPage()
+                    }
             }
         }
     }
@@ -81,7 +106,10 @@ class AllImageScreenViewModel @Inject constructor(
         }
     }
 
-    internal fun changeLoadItemsWebWithLikeDbItemsAndUpdate(list:List<DelegateItem>){
+    internal fun changeLoadItemsWebWithLikeDbItemsAndUpdate(
+        list:List<DelegateItem>,
+        isNewPage:Boolean = false
+    ){
         viewModelScope.launch (Dispatchers.IO) {
             val listFromLike = repository.getAllLikeImages()
             val mappedListFromLike =  mapperLikeImages.mapListEntityDbToListViewModels(listFromLike)
@@ -97,12 +125,28 @@ class AllImageScreenViewModel @Inject constructor(
                     } else newListAfterCompare.add(item)
                 } else  newListAfterCompare.add(item)
             }
+            updateStateListAndSaveInDb(newListAfterCompare,isNewPage)
+        }
+    }
+
+    private suspend fun updateStateListAndSaveInDb(newListAfterCompare:List<DelegateItem>, isNewPage: Boolean){
+        if (isNewPage){
+            val updateListAfterLoadNewPage = ArrayList<DelegateItem>()
+            updateListAfterLoadNewPage.addAll(mutableUiState.value.list)
+            updateListAfterLoadNewPage.addAll(newListAfterCompare)
+            updateState { state->
+                state.copy(list = updateListAfterLoadNewPage)
+            }
+            repository.clearDbAllImages()
+            repository.insertInAllImages(mapperAllImages.mapViewModelsToEntityDb(updateListAfterLoadNewPage))
+        } else {
             updateState { state->
                 state.copy(list = newListAfterCompare)
             }
             repository.clearDbAllImages()
             repository.insertInAllImages(mapperAllImages.mapViewModelsToEntityDb(newListAfterCompare))
         }
+
     }
 
     internal fun getLoadAllImagesFromDb() {
@@ -117,6 +161,46 @@ class AllImageScreenViewModel @Inject constructor(
     internal fun updateUrlNextPage(urlNextPage: String) {
         updateState {state->
             state.copy(nextPageLoad = urlNextPage)
+        }
+    }
+
+    internal fun loadNextPage() {
+        updateState { state ->
+            state.copy(
+                isLoadingNewPage = true
+            )
+        }
+        if (mutableUiState.value.nextPageLoad == null) {
+            viewModelScope.launch (Dispatchers.IO){
+                getDefaultLoadImagesFromWeb()
+            }
+        } else {
+            viewModelScope.launch (Dispatchers.IO){
+                getNewLoadImagesWeb(mutableUiState.value.nextPageLoad!!)
+            }
+        }
+    }
+    internal fun pullToRefresh(){
+        updateState { state ->
+            state.copy(
+                isRefresh = true,
+                nextPageLoad = null,
+            )
+        }
+        viewModelScope.launch (Dispatchers.IO){
+            getDefaultLoadImagesFromWeb()
+        }
+    }
+
+    private fun endLoadingRefresh() {
+        updateState { state->
+            state.copy(isRefresh = false)
+        }
+    }
+
+    private fun endLoadingNewPage() {
+        updateState { state->
+            state.copy(isLoadingNewPage = false)
         }
     }
 
