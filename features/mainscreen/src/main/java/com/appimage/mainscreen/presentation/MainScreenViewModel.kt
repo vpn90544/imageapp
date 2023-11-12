@@ -1,24 +1,38 @@
 package com.appimage.mainscreen.presentation
 
+import androidx.lifecycle.viewModelScope
 import com.appimage.all_image_screen_api.mediators.AllImageScreenMediator
 import com.appimage.arch.viewmodel.BaseViewModel
 import com.appimage.core.di.qualifiers.ContentFragmentContainer
 import com.appimage.core_ui.view.category.CategoryView
 import com.appimage.core_ui.view.category.CategoryViewModel
 import com.appimage.like_image_screen_api.mediators.LikeImageScreenMediator
+import com.appimage.mainscreen.data.MainScreenRepository
 import com.appimage.utils.adapter.DelegateItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainScreenViewModel @Inject constructor(
     private val allImageScreenMediator: AllImageScreenMediator,
     private val likeImageScreenMediator: LikeImageScreenMediator,
     @ContentFragmentContainer
-    private val contentContainerId: Int
+    private val contentContainerId: Int,
+    private val mainScreenRepository: MainScreenRepository
 ) : BaseViewModel<MainUiState>(initialState = MainUiState()) {
 
     override fun bootstrap() {
         super.bootstrap()
         navigateToAllImages()
+        getLoadCountLikeImagesDb()
+    }
+
+    fun getLoadCountLikeImagesDb(){
+        viewModelScope.launch (Dispatchers.IO){
+            val countLikeImages = mainScreenRepository.getCountFromLikeImagesDb()
+            updateCountInLikeImages(countLikeImages)
+        }
+
     }
     fun navigateToLikeImages() {
         likeImageScreenMediator.showLikeImageScreenFragment {
@@ -66,6 +80,9 @@ class MainScreenViewModel @Inject constructor(
                     newList.add(item.copy(countInCategory = count))
                 } else newList.add(item)
             } else newList.add(item)
+        }
+        updateState { state->
+            state.copy(newList)
         }
     }
 }

@@ -23,4 +23,7 @@ interface DaoDb {
     fun clearAllImages()
     @Query("DELETE FROM likeImages WHERE id =:id")
     fun delItemFromLikeImages(id: Int)
+
+    @Query("SELECT COUNT(*) FROM likeImages")
+    fun getCountLikeImages(): Int
 }
