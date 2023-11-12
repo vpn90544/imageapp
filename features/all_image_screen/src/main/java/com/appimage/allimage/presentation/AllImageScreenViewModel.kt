@@ -1,15 +1,16 @@
 package com.appimage.allimage.presentation
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import com.appimage.allimage.data.AllImageRepository
 import com.appimage.allimage.data.dto.ImagesInfoPage
 import com.appimage.allimage.data.mapper.MapperImagesInfoDtoToViewModel
 import com.appimage.arch.viewmodel.BaseViewModel
+import com.appimage.core_ui.view.image_with_like.ImageLikeViewModel
+import com.appimage.utils.adapter.DelegateItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.w3c.dom.CharacterData
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -27,6 +28,7 @@ class AllImageScreenViewModel @Inject constructor(
         }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private suspend fun getDefaultLoadImages(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
             viewModelScope.launch {
@@ -34,7 +36,6 @@ class AllImageScreenViewModel @Inject constructor(
                     .onSuccess { result ->
                     continuation.resume(result)
                 val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
-                    println(result)
                     withContext(Dispatchers.Main){
                         updateState { state->
                             state.copy(list = mapList)
@@ -44,6 +45,25 @@ class AllImageScreenViewModel @Inject constructor(
                     continuation.resumeWithException(it)
                 }
             }
+        }
+    }
+
+    internal fun clickLikeOrUnLikeImage(clickItem:ImageLikeViewModel) {
+        val images = mutableUiState.value.list
+        val updateImages = ArrayList<DelegateItem>()
+        for (item in images) {
+            if (item is ImageLikeViewModel) {
+                if (item.id == clickItem.id) {
+                    updateImages.add(item.copy(isLike = !item.isLike))
+                } else {
+                    updateImages.add(item)
+                }
+            } else {
+                updateImages.add(item)
+            }
+        }
+        updateState { state->
+            state.copy(list = updateImages)
         }
     }
 }

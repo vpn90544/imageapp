@@ -12,6 +12,7 @@ import com.appimage.arch.fragment.BaseFragment
 import com.appimage.core.di.providers.ApplicationProvider
 import com.appimage.core_ui.view.category.CategoryDelegateAdapter
 import com.appimage.core_ui.view.image_with_like.ImageLikeDelegateAdapter
+import com.appimage.core_ui.view.image_with_like.ImageLikeViewModel
 import com.appimage.utils.adapter.CompositeAdapter
 import com.appimage.utils.adapter.decorator.DecoratorParams
 import com.appimage.utils.adapter.decorator.ItemsDecorator
@@ -21,7 +22,9 @@ class AllImageScreenFragment
 
     private val compositeAdapter by lazy {
         CompositeAdapter.Builder()
-            .add(ImageLikeDelegateAdapter())
+            .add(ImageLikeDelegateAdapter {
+                viewModel.clickLikeOrUnLikeImage(it)
+            })
             .build()
     }
 
