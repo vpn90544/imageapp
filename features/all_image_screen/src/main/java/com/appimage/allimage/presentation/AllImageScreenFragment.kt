@@ -28,7 +28,6 @@ class AllImageScreenFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSettingRecycler()
-        viewModel.fromfrgaf()
     }
 
     private fun setSettingRecycler() {

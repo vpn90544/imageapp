@@ -8,7 +8,7 @@ class MapperImagesInfoDtoToViewModel {
 
     fun mapToImageViewModels(dto: ImagesInfoPage?) : List<DelegateItem>{
         val listViewModels = ArrayList<DelegateItem>()
-        if (dto!=null) {
+        dto?.let {
             val results = dto.results
             results?.let {
                 for (result in results) {
