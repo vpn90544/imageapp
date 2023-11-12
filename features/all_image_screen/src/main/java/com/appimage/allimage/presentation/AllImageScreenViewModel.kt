@@ -58,6 +58,11 @@ class AllImageScreenViewModel @Inject constructor(
     private suspend fun getNewLoadImagesWeb(urlNextPage: String): ImagesInfoPage {
         return suspendCoroutine { continuation ->
             viewModelScope.launch {
+                updateState { state ->
+                    state.copy(
+                        isLoadingNewPage = true
+                    )
+                }
                 repository.getLoadNewImagesFromWeb(urlNextPage)
                     .onSuccess { result ->
                         continuation.resume(result)
@@ -165,18 +170,14 @@ class AllImageScreenViewModel @Inject constructor(
     }
 
     internal fun loadNextPage() {
-        updateState { state ->
-            state.copy(
-                isLoadingNewPage = true
-            )
-        }
-        if (mutableUiState.value.nextPageLoad == null) {
+
+        if (mutableUiState.value.nextPageLoad != null) {
             viewModelScope.launch (Dispatchers.IO){
-                getDefaultLoadImagesFromWeb()
+                getNewLoadImagesWeb(mutableUiState.value.nextPageLoad!!)
             }
         } else {
             viewModelScope.launch (Dispatchers.IO){
-                getNewLoadImagesWeb(mutableUiState.value.nextPageLoad!!)
+                getDefaultLoadImagesFromWeb()
             }
         }
     }
@@ -203,5 +204,4 @@ class AllImageScreenViewModel @Inject constructor(
             state.copy(isLoadingNewPage = false)
         }
     }
-
 }
