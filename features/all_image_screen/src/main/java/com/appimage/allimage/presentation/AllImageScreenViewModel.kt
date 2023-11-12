@@ -37,10 +37,11 @@ class AllImageScreenViewModel @Inject constructor(
                 repository.getLoadDefaultImagesFromWeb()
                     .onSuccess { result ->
                     continuation.resume(result)
-                val mapList = mapperAllImages.mapToImageViewModels(result)
+                val mapList = mapperAllImages.mapEntityWebToViewModels(result)
                         changeLoadItemsWebWithLikeDbItemsAndUpdate(mapList)
                         println(repository.getLoadAllImagesFromWeb().size)
                 }.onFailure {
+                    getLoadAllImagesFromDb()
                     continuation.resumeWithException(it)
                 }
             }
@@ -68,20 +69,20 @@ class AllImageScreenViewModel @Inject constructor(
 
     internal fun insertLikeOrUnlikeImage(likeImage: ImageLikeViewModel){
         viewModelScope.launch (Dispatchers.IO){
-            repository.insertLikeImages(mapperLikeImages.mapToEntityDb(likeImage))
+            repository.insertLikeImages(mapperLikeImages.mapViewModelToEntityDb(likeImage))
         }
     }
 
     internal fun delLikeImage(likeImage: ImageLikeViewModel){
         viewModelScope.launch (Dispatchers.IO){
-            repository.delLikeImage(mapperLikeImages.mapToEntityDb(likeImage))
+            repository.delLikeImage(mapperLikeImages.mapViewModelToEntityDb(likeImage))
         }
     }
 
     internal fun changeLoadItemsWebWithLikeDbItemsAndUpdate(list:List<DelegateItem>){
         viewModelScope.launch (Dispatchers.IO) {
             val listFromLike = repository.getAllLikeImages()
-            val mappedListFromLike =  mapperLikeImages.mapToListViewModels(listFromLike)
+            val mappedListFromLike =  mapperLikeImages.mapListEntityDbToListViewModels(listFromLike)
             val newListAfterCompare = ArrayList<DelegateItem>()
             val likedIds = ArrayList<Int>()
             for (item in mappedListFromLike) {
@@ -98,7 +99,16 @@ class AllImageScreenViewModel @Inject constructor(
                 state.copy(list = newListAfterCompare)
             }
             repository.clearDbAllImages()
-            repository.insertInAllImages(mapperAllImages.mapToEntityAllImages(newListAfterCompare))
+            repository.insertInAllImages(mapperAllImages.mapViewModelsToEntityDb(newListAfterCompare))
+        }
+    }
+
+    internal fun getLoadAllImagesFromDb() {
+        viewModelScope.launch (Dispatchers.IO){
+            val updateList = repository.getAllImages()
+            updateState { state->
+                state.copy(list = mapperAllImages.mapListEntityDbToListViewModels(updateList))
+            }
         }
     }
 

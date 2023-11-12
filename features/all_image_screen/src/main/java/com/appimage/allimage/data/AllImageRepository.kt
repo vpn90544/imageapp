@@ -23,6 +23,10 @@ class AllImageRepository @Inject constructor(
         return db.getDao().getLikeImages()
     }
 
+    suspend fun getAllImages(): List<EntityAllImagesDB> {
+        return db.getDao().getAllImages()
+    }
+
     suspend fun insertLikeImages(likeImage: EntityLikeImagesDB) {
         db.getDao().delItemFromLikeImages(id = likeImage.id!!)
         db.getDao().insertLikeImage(likeImage)
