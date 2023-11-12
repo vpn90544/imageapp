@@ -1,12 +1,18 @@
 package com.appimage.core_ui.view.image_with_like
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.appimage.core_ui.R
 import com.appimage.core_ui.databinding.ImageLikeViewBinding
 import com.appimage.core_ui.view.Populatable
+import com.appimage.core_ui.view.category.CategoryView
+import com.appimage.utils.dpToPx
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.squareup.picasso.Picasso
 
 class ImageLikeView @JvmOverloads constructor(
@@ -18,15 +24,19 @@ class ImageLikeView @JvmOverloads constructor(
     Populatable<ImageLikeViewModel>
 {
     private val imageLikeViewBinding: ImageLikeViewBinding
+    private var mainContainerColor: ColorStateList
 
     init {
         val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.image_like_view, this, true)
         imageLikeViewBinding = ImageLikeViewBinding.bind(this)
+        mainContainerColor = context.getColorStateList(R.color.image_like_main_container)
     }
 
     override fun populate(model: ImageLikeViewModel) {
-        TODO("Not yet implemented")
+        setLayoutParams()
+        setMainImage(model)
+        setImageIsLike(model)
     }
 
     private fun setLayoutParams(){
@@ -53,5 +63,23 @@ class ImageLikeView @JvmOverloads constructor(
         imageLikeViewBinding.imageIsLike.setOnClickListener {
             action.invoke(model)
         }
+    }
+
+    private fun setMainBackground() {
+        imageLikeViewBinding.mainContainer.background = MaterialShapeDrawable(
+            getDrawableBackgroundWithAllCorner(CategoryView.CORNER_MAIN_CONTAINER_DP)
+        )
+    }
+
+    private fun setMainBackgroundColor() {
+        (imageLikeViewBinding.mainContainer.background as MaterialShapeDrawable).apply {
+            fillColor = mainContainerColor
+        }
+    }
+
+    private fun getDrawableBackgroundWithAllCorner(cornerRadius: Int): ShapeAppearanceModel {
+        return ShapeAppearanceModel.builder()
+            .setAllCorners(CornerFamily.ROUNDED, cornerRadius.dpToPx().toFloat())
+            .build()
     }
 }

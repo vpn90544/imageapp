@@ -10,5 +10,7 @@
     <color name="category_disable_main_text">#001A34</color>
     <color name="category_disable_count_container">#005AFE</color>
     <color name="category_disable_count_text">#F5F5F5</color>
+    <!-- Image Like items colors -->
+    <color name="image_like_main_container">#D8DFEA</color>
 
 </resources>
