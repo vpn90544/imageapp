@@ -6,67 +6,37 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ImagesInfoPage (
-    var info    : InfoData?              = InfoData(),
-    var results : ArrayList<CharacterData> = arrayListOf()
+    @SerializedName("info"    ) var info    : Info?              = null,
+    @SerializedName("results" ) var results : ArrayList<CharacterDomain>? = null
 )
-@Entity(tableName = "info_character_page")
-data class InfoData (
-    @PrimaryKey
-    val id_info: Int? = null,
-    var count : Int?    = null,
-    var pages : Int?    = null,
-    var next  : String? = null,
-    var prev  : String? = null
+data class Info (
+    @SerializedName("count" ) var count : Int?    = null,
+    @SerializedName("pages" ) var pages : Int?    = null,
+    @SerializedName("next"  ) var next  : String? = null,
+    @SerializedName("prev"  ) var prev  : String? = null
 )
-@Entity(
-    foreignKeys = arrayOf( ForeignKey(
-        entity = CharacterData::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("id_origin"),
-        onDelete = ForeignKey.CASCADE
-    )
-    )
+data class Origin (
+    @SerializedName("name" ) var name : String? = null,
+    @SerializedName("url"  ) var url  : String? = null
 )
-data class OriginData (
-    @PrimaryKey
-    @ColumnInfo("id_origin")var id_character:Int? =null,
-    @ColumnInfo("name_origin")var name : String? = null,
-    @ColumnInfo("url_origin")var url  : String? = null
+data class Location (
+    @SerializedName("name" ) var name : String? = null,
+    @SerializedName("url"  ) var url  : String? = null
 )
-@Entity(
-    foreignKeys = arrayOf( ForeignKey(
-        entity = CharacterData::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("id_location"),
-        onDelete = ForeignKey.CASCADE
-    )
-    )
-)
-data class LocationDataForCharacterElements (
-    @PrimaryKey
-    @ColumnInfo("id_location")var id_character:Int? =0,
-    @ColumnInfo("name_location")var name : String? = null,
-    @ColumnInfo("url_location")var url  : String? = null
-)
-
-@Entity(tableName = "table_character")
-data class CharacterData(
-    var id_page: Int? = null,
-    @PrimaryKey(autoGenerate = true)
-    var id       : Int?              = null,
-    @ColumnInfo("name_character")var name     : String?           = null,
-    var status   : String?           = null,
-    var species  : String?           = null,
-    var type     : String?           = null,
-    var gender   : String?           = null,
-    @Embedded
-    var origin   : OriginData?       = OriginData(),
-    @Embedded
-    var location : LocationDataForCharacterElements?     = LocationDataForCharacterElements(),
-    var image    : String?           = null,
-    var episode  : String?           = null,
-    var url      : String?           = null,
-    var created  : String?           = null
+data class CharacterDomain(
+    @SerializedName("id"       ) var id       : Int?              = null,
+    @SerializedName("name"     ) var name     : String?           = null,
+    @SerializedName("status"   ) var status   : String?           = null,
+    @SerializedName("species"  ) var species  : String?           = null,
+    @SerializedName("type"     ) var type     : String?           = null,
+    @SerializedName("gender"   ) var gender   : String?           = null,
+    @SerializedName("origin"   ) var origin   : Origin?           = Origin(),
+    @SerializedName("location" ) var location : Location?         = Location(),
+    @SerializedName("image"    ) var image    : String?           = null,
+    @SerializedName("episode"  ) var episode  : ArrayList<String> = arrayListOf(),
+    @SerializedName("url"      ) var url      : String?           = null,
+    @SerializedName("created"  ) var created  : String?           = null
 )

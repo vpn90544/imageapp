@@ -29,28 +29,28 @@ class AllImageScreenViewModel @Inject constructor(
 
     fun fromfrgaf(){
         viewModelScope.launch (Dispatchers.IO){
-            getDefaultLoadImages()
+            val rep = getDefaultLoadImages()
+            println(rep)
         }
     }
 
     private suspend fun getDefaultLoadImages(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
-            viewModelScope.launch(Dispatchers.IO) {
+            viewModelScope.launch {
                 val repo = repository.getLoadDefaultImagesFromWeb()
-                println(repo?.info)
-                    //.onSuccess { result ->
-//                    continuation.resume(result)
-//                val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
-//                    //println(result.info)
-//                    println(result)
-//                   // withContext(Dispatchers.Main){
-////                        updateState { state->
+                    .onSuccess { result ->
+                    continuation.resume(result)
+                val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
+                    //println(result.info)
+                    println(result)
+                   // withContext(Dispatchers.Main){
+//                        updateState { state->
 //                            state.copy(list = mapList)
 //                        }
 //                    }
-//                }.onFailure {
-//                    continuation.resumeWithException(it)
-//                }
+                }.onFailure {
+                    continuation.resumeWithException(it)
+                }
             }
         }
     }

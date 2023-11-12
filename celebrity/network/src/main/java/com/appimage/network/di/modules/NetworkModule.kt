@@ -11,6 +11,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.astondevs.amoney.network.internal.calladapters.ResultCallAdapterFactory
 import javax.inject.Singleton
 import kotlin.coroutines.CoroutineContext
 
@@ -52,6 +53,7 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(gsonConverterFactory)
+            .addCallAdapterFactory(ResultCallAdapterFactory.create())
             .client(okHttpClient)
             .build()
     }

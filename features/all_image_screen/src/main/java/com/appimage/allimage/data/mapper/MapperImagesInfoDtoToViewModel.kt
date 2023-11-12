@@ -10,10 +10,12 @@ class MapperImagesInfoDtoToViewModel {
         val listViewModels = ArrayList<DelegateItem>()
         if (dto!=null) {
             val results = dto.results
-            for (result in results) {
-                if (result.image!=null && result.id!=null) {
-                    listViewModels.add(ImageLikeViewModel(id = result.id,
-                        imageUrl = result.image))
+            results?.let {
+                for (result in results) {
+                    if (result.image!=null && result.id!=null) {
+                        listViewModels.add(ImageLikeViewModel(id = result.id!!,
+                            imageUrl = result.image!!))
+                    }
                 }
             }
         }
