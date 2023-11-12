@@ -1,7 +1,5 @@
-package ru.astondevs.amoney.network.internal.calladapters
+package com.appimage.network.di.modules.calladapters
 
-import com.appimage.network.di.modules.calladapters.mapExceptionToNetworkException
-import com.appimage.network.di.modules.calladapters.mapResponseToResult
 import okhttp3.Request
 import okio.Timeout
 import retrofit2.Call

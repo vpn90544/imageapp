@@ -1,4 +1,4 @@
-package ru.astondevs.amoney.network.internal.calladapters
+package com.appimage.network.di.modules.calladapters
 
 import retrofit2.Call
 import retrofit2.CallAdapter

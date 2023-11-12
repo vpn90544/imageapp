@@ -8,6 +8,7 @@ import retrofit2.Response
 import com.appimage.network.di.modules.exceptions.ForbiddenException
 import com.appimage.network.di.modules.exceptions.HttpExceptionWithBody
 import com.appimage.network.di.modules.exceptions.InternalServerException
+import com.appimage.network.di.modules.exceptions.NoInternetException
 import com.appimage.network.di.modules.exceptions.NotAcceptableException
 import com.appimage.network.di.modules.exceptions.NotFoundException
 import com.appimage.network.di.modules.exceptions.ServerConflictException
@@ -25,9 +26,9 @@ internal fun <T : Any> mapResponseToResult(response: Response<T>): Result<T> {
 
 internal fun mapExceptionToNetworkException(throwable: Throwable): Exception {
     return when (throwable) {
-        is IOException -> RuntimeException()
+        is IOException -> NoInternetException()
         is HttpException -> mapCodeToException(throwable.code())
-        else -> RuntimeException()
+        else -> UnexpectedHttpException()
     }
 }
 
