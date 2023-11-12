@@ -1,5 +1,6 @@
 package com.appimage.allimage.di
 
+import com.appimage.allimage.di.modules.AllImageRepositoryModule
 import com.appimage.allimage.di.modules.AllImageScreenViewModelModule
 import com.appimage.allimage.presentation.AllImageScreenFragment
 import com.appimage.core.di.providers.ApplicationProvider
@@ -12,7 +13,8 @@ import dagger.Component
         ApplicationProvider::class,
     ],
     modules = [
-        AllImageScreenViewModelModule::class
+        AllImageScreenViewModelModule::class,
+        AllImageRepositoryModule::class
     ]
 )
 interface AllImageScreenComponent {
