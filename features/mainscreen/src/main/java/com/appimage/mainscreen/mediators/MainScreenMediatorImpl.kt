@@ -8,9 +8,6 @@ import javax.inject.Inject
 class MainScreenMediatorImpl
 @Inject constructor() : MainScreenMediator {
 
-//    override fun showMainScreenFragment(): Fragment {
-//        return MainScreenFragment.newInstance()
-//    }
     override fun showMainScreenFragment(action: (Fragment) -> Unit) {
         action(MainScreenFragment.newInstance())
     }
