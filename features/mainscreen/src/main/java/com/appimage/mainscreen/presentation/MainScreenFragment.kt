@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appimage.arch.fragment.BaseFragment
@@ -30,6 +31,16 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setSettingRecycler()
+        setFragmentListener()
+    }
+
+    private fun setFragmentListener() {
+        setFragmentResultListener(REQUEST_KEY) { requestKey, bundle ->
+            val result = bundle.getString(BUNDLE_KEY)
+            if (result == RESULT) {
+                viewModel.getLoadCountLikeImagesDbAndUpdateState()
+            }
+        }
     }
 
     private fun setSettingRecycler() {
@@ -58,6 +69,9 @@ class MainScreenFragment: BaseFragment< MainUiState, MainScreenViewModel, Mainsc
     companion object {
 
         const val DEFAULT_VALUE_FOR_ITEM_DECORATOR = 8
+        private const val REQUEST_KEY = "requestKey"
+        private const val BUNDLE_KEY = "bundleKey"
+        private const val RESULT = "updateCountLikeImages"
 
         fun newInstance(): MainScreenFragment {
             return MainScreenFragment()

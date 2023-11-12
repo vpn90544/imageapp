@@ -24,10 +24,10 @@ class MainScreenViewModel @Inject constructor(
     override fun bootstrap() {
         super.bootstrap()
         navigateToAllImages()
-        getLoadCountLikeImagesDb()
+        getLoadCountLikeImagesDbAndUpdateState()
     }
 
-    fun getLoadCountLikeImagesDb(){
+    fun getLoadCountLikeImagesDbAndUpdateState(){
         viewModelScope.launch (Dispatchers.IO){
             val countLikeImages = mainScreenRepository.getCountFromLikeImagesDb()
             updateCountInLikeImages(countLikeImages)

@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appimage.arch.fragment.BaseFragment
@@ -23,6 +25,7 @@ class LikeImageScreenFragment
         CompositeAdapter.Builder()
             .add(ImageLikeDelegateAdapter {
                 viewModel.clickLikeOrUnLikeImage(it)
+                setFragmentResult(REQUEST_KEY, bundleOf(BUNDLE_KEY to RESULT))
             })
             .build()
     }
@@ -30,7 +33,6 @@ class LikeImageScreenFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        println("FRAGMENT LIKE IMAGE Создане")
         setSettingRecycler()
     }
 
@@ -61,6 +63,9 @@ class LikeImageScreenFragment
     companion object {
 
         const val DEFAULT_VALUE_FOR_ITEM_DECORATOR = 8
+        private const val REQUEST_KEY = "requestKey"
+        private const val BUNDLE_KEY = "bundleKey"
+        private const val RESULT = "updateCountLikeImages"
 
         fun newInstance(): LikeImageScreenFragment {
             return LikeImageScreenFragment()

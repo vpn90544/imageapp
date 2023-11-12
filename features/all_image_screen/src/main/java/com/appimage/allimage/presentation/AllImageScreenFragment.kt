@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.appimage.allimage.databinding.AllImageLayoutBinding
@@ -23,6 +25,7 @@ class AllImageScreenFragment
         CompositeAdapter.Builder()
             .add(ImageLikeDelegateAdapter {
                 viewModel.clickLikeOrUnLikeImage(it)
+                setFragmentResult(REQUEST_KEY, bundleOf(BUNDLE_KEY to RESULT))
             })
             .build()
     }
@@ -77,6 +80,9 @@ class AllImageScreenFragment
 
     companion object {
 
+        private const val REQUEST_KEY = "requestKey"
+        private const val BUNDLE_KEY = "bundleKey"
+        private const val RESULT = "updateCountLikeImages"
         const val DEFAULT_VALUE_FOR_ITEM_DECORATOR = 8
 
         fun newInstance(): AllImageScreenFragment {

@@ -15,7 +15,6 @@ class AppImageApp:Application(), BaseApp {
             localAppComponent.inject(this)
             appComponent = localAppComponent
         }
-        println("Компонент апп создан")
         super.onCreate()
     }
 
