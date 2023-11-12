@@ -37,6 +37,9 @@ class AllImageScreenViewModel @Inject constructor(
                 repository.getLoadDefaultImagesFromWeb()
                     .onSuccess { result ->
                     continuation.resume(result)
+                    result.info?.next?.let {
+                        updateUrlNextPage(it)
+                    }
                 val mapList = mapperAllImages.mapEntityWebToViewModels(result)
                         changeLoadItemsWebWithLikeDbItemsAndUpdate(mapList)
                         println(repository.getLoadAllImagesFromWeb().size)
@@ -108,6 +111,12 @@ class AllImageScreenViewModel @Inject constructor(
             updateState { state->
                 state.copy(list = mapperAllImages.mapListEntityDbToListViewModels(updateList))
             }
+        }
+    }
+
+    internal fun updateUrlNextPage(urlNextPage: String) {
+        updateState {state->
+            state.copy(nextPageLoad = urlNextPage)
         }
     }
 
