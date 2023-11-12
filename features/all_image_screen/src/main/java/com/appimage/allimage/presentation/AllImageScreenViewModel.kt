@@ -36,19 +36,21 @@ class AllImageScreenViewModel @Inject constructor(
     private suspend fun getDefaultLoadImages(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
             viewModelScope.launch(Dispatchers.IO) {
-                repository.getLoadDefaultImagesFromWeb().onSuccess { result ->
-                    continuation.resume(result)
-                val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
-                    //println(result.info)
-                    println(result)
-                   // withContext(Dispatchers.Main){
-//                        updateState { state->
+                val repo = repository.getLoadDefaultImagesFromWeb()
+                println(repo?.info)
+                    //.onSuccess { result ->
+//                    continuation.resume(result)
+//                val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
+//                    //println(result.info)
+//                    println(result)
+//                   // withContext(Dispatchers.Main){
+////                        updateState { state->
 //                            state.copy(list = mapList)
 //                        }
 //                    }
-                }.onFailure {
-                    continuation.resumeWithException(it)
-                }
+//                }.onFailure {
+//                    continuation.resumeWithException(it)
+//                }
             }
         }
     }

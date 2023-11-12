@@ -1,26 +1,72 @@
 package com.appimage.allimage.data.dto
 
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
-data class ImagesInfoPage(
-    @SerializedName("info")
-    val info: InfoPage? = InfoPage(),
-    @SerializedName("results")
-    val results: ArrayList<Image> = arrayListOf()
+data class ImagesInfoPage (
+    var info    : InfoData?              = InfoData(),
+    var results : ArrayList<CharacterData> = arrayListOf()
 )
 @Entity(tableName = "info_character_page")
-data class InfoPage (
+data class InfoData (
     @PrimaryKey
     val id_info: Int? = null,
-    var next: String? = null,
-    var prev: String? = null
+    var count : Int?    = null,
+    var pages : Int?    = null,
+    var next  : String? = null,
+    var prev  : String? = null
+)
+@Entity(
+    foreignKeys = arrayOf( ForeignKey(
+        entity = CharacterData::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("id_origin"),
+        onDelete = ForeignKey.CASCADE
+    )
+    )
+)
+data class OriginData (
+    @PrimaryKey
+    @ColumnInfo("id_origin")var id_character:Int? =null,
+    @ColumnInfo("name_origin")var name : String? = null,
+    @ColumnInfo("url_origin")var url  : String? = null
+)
+@Entity(
+    foreignKeys = arrayOf( ForeignKey(
+        entity = CharacterData::class,
+        parentColumns = arrayOf("id"),
+        childColumns = arrayOf("id_location"),
+        onDelete = ForeignKey.CASCADE
+    )
+    )
+)
+data class LocationDataForCharacterElements (
+    @PrimaryKey
+    @ColumnInfo("id_location")var id_character:Int? =0,
+    @ColumnInfo("name_location")var name : String? = null,
+    @ColumnInfo("url_location")var url  : String? = null
 )
 
 @Entity(tableName = "table_character")
-data class Image(
+data class CharacterData(
+    var id_page: Int? = null,
     @PrimaryKey(autoGenerate = true)
-    val id: Int? = null,
-    val image: String? = null
+    var id       : Int?              = null,
+    @ColumnInfo("name_character")var name     : String?           = null,
+    var status   : String?           = null,
+    var species  : String?           = null,
+    var type     : String?           = null,
+    var gender   : String?           = null,
+    @Embedded
+    var origin   : OriginData?       = OriginData(),
+    @Embedded
+    var location : LocationDataForCharacterElements?     = LocationDataForCharacterElements(),
+    var image    : String?           = null,
+    var episode  : String?           = null,
+    var url      : String?           = null,
+    var created  : String?           = null
 )
