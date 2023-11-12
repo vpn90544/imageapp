@@ -54,6 +54,11 @@ class AllImageScreenFragment
         compositeAdapter.submitList(
             uiState.list
         )
+        if (uiState.isRefresh) {
+
+        } else {}
+        if (uiState.isLoadingNewPage) {} else {}
+
     }
 
     companion object {

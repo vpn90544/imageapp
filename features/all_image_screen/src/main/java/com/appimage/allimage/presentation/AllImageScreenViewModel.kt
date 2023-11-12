@@ -42,7 +42,6 @@ class AllImageScreenViewModel @Inject constructor(
                         println(repository.getLoadAllImagesFromWeb().size)
                 }.onFailure {
                     getLoadAllImagesFromDb()
-                    continuation.resumeWithException(it)
                 }
             }
         }
