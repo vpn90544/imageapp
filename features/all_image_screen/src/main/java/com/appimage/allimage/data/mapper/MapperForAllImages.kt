@@ -23,21 +23,17 @@ class MapperForAllImages {
         return listViewModels
     }
 
-    fun mapToEntityAllImages(dto: ImagesInfoPage?): List<EntityAllImagesDB> {
+    fun mapToEntityAllImages(list:List<DelegateItem>): List<EntityAllImagesDB> {
         val listEntityAllImages = ArrayList<EntityAllImagesDB>()
-        dto?.let {
-            val results = dto.results
-            results?.let {
-                for (result in results) {
-                    if (result.image!=null && result.id!=null) {
-                        listEntityAllImages.add(
-                            EntityAllImagesDB(
-                            id = result.id,
-                            image = result.image
-                            )
-                        )
-                    }
-                }
+        for (item in list) {
+            if (item is ImageLikeViewModel) {
+                listEntityAllImages.add(
+                    EntityAllImagesDB(
+                        id = item.id,
+                        image = item.imageUrl,
+                        isLike = item.isLike
+                    )
+                )
             }
         }
         return listEntityAllImages

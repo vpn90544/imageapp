@@ -18,9 +18,18 @@ class AllImageRepository @Inject constructor(
     @DefaultNetworkApi
     private val context: CoroutineContext
 ) {
-    suspend fun insertLikeOrUnLikeImages(likeImage: EntityLikeImagesDB) {
+
+    suspend fun getAllLikeImages(): List<EntityLikeImagesDB>{
+        return db.getDao().getLikeImages()
+    }
+
+    suspend fun insertLikeImages(likeImage: EntityLikeImagesDB) {
         db.getDao().delItemFromLikeImages(id = likeImage.id!!)
         db.getDao().insertLikeImage(likeImage)
+    }
+
+    suspend fun delLikeImage(likeImage: EntityLikeImagesDB) {
+        db.getDao().delItemFromLikeImages(id = likeImage.id!!)
     }
     suspend fun insertInAllImages(list: List<EntityAllImagesDB>) {
         db.getDao().insertAllImages(list)

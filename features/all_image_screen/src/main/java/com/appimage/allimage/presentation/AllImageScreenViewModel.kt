@@ -7,7 +7,6 @@ import com.appimage.allimage.data.models.ImagesInfoPage
 import com.appimage.allimage.data.mapper.MapperForAllImages
 import com.appimage.allimage.data.mapper.MapperForLikeImage
 import com.appimage.arch.viewmodel.BaseViewModel
-import com.appimage.core.di.db.entity.EntityLikeImagesDB
 import com.appimage.core_ui.view.image_with_like.ImageLikeViewModel
 import com.appimage.utils.adapter.DelegateItem
 import kotlinx.coroutines.Dispatchers
@@ -39,11 +38,7 @@ class AllImageScreenViewModel @Inject constructor(
                     .onSuccess { result ->
                     continuation.resume(result)
                 val mapList = mapperAllImages.mapToImageViewModels(result)
-                        updateState { state->
-                            state.copy(list = mapList)
-                        }
-                        repository.clearDbAllImages()
-                        repository.insertInAllImages(mapperAllImages.mapToEntityAllImages(result))
+                        changeLoadItemsWebWithLikeDbItemsAndUpdate(mapList)
                         println(repository.getLoadAllImagesFromWeb().size)
                 }.onFailure {
                     continuation.resumeWithException(it)
@@ -60,13 +55,11 @@ class AllImageScreenViewModel @Inject constructor(
                 if (item.id == clickItem.id) {
                     val changeItem = item.copy(isLike = !item.isLike)
                     updateImages.add(changeItem)
-                    insertLikeOrUnlikeImage(changeItem)
-                } else {
-                    updateImages.add(item)
-                }
-            } else {
-                updateImages.add(item)
-            }
+                    if (changeItem.isLike){
+                        insertLikeOrUnlikeImage(changeItem)
+                    } else delLikeImage(changeItem)
+                } else updateImages.add(item)
+            } else updateImages.add(item)
         }
         updateState { state->
             state.copy(list = updateImages)
@@ -75,7 +68,38 @@ class AllImageScreenViewModel @Inject constructor(
 
     internal fun insertLikeOrUnlikeImage(likeImage: ImageLikeViewModel){
         viewModelScope.launch (Dispatchers.IO){
-            repository.insertLikeOrUnLikeImages(mapperLikeImages.mapToEntityDb(likeImage))
+            repository.insertLikeImages(mapperLikeImages.mapToEntityDb(likeImage))
         }
     }
+
+    internal fun delLikeImage(likeImage: ImageLikeViewModel){
+        viewModelScope.launch (Dispatchers.IO){
+            repository.delLikeImage(mapperLikeImages.mapToEntityDb(likeImage))
+        }
+    }
+
+    internal fun changeLoadItemsWebWithLikeDbItemsAndUpdate(list:List<DelegateItem>){
+        viewModelScope.launch (Dispatchers.IO) {
+            val listFromLike = repository.getAllLikeImages()
+            val mappedListFromLike =  mapperLikeImages.mapToListViewModels(listFromLike)
+            val newListAfterCompare = ArrayList<DelegateItem>()
+            val likedIds = ArrayList<Int>()
+            for (item in mappedListFromLike) {
+                likedIds.add(item.id)
+            }
+            for (item in list) {
+                if (item is ImageLikeViewModel) {
+                    if (likedIds.contains(item.id)) {
+                        newListAfterCompare.add(item.copy(isLike = true))
+                    } else newListAfterCompare.add(item)
+                } else  newListAfterCompare.add(item)
+            }
+            updateState { state->
+                state.copy(list = newListAfterCompare)
+            }
+            repository.clearDbAllImages()
+            repository.insertInAllImages(mapperAllImages.mapToEntityAllImages(newListAfterCompare))
+        }
+    }
+
 }
