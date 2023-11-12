@@ -16,14 +16,14 @@ class AllImageRepository @Inject constructor(
 
     suspend fun getLoadNewImagesFromWeb(
         urlNewPage: String
-    ): Response<ImagesInfoPage> {
+    ): Result<ImagesInfoPage> {
         return withContext(context) {
             service.getImagesNewPage(urlNewPage)
         }
     }
 
     suspend fun getLoadDefaultImagesFromWeb(
-    ): Response<ImagesInfoPage> {
+    ): Result<ImagesInfoPage> {
         return withContext(context){
             service.getImagesDefault()
         }

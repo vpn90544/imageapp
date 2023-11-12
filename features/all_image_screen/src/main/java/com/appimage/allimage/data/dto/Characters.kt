@@ -2,9 +2,12 @@ package com.appimage.allimage.data.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 
 data class ImagesInfoPage(
+    @SerializedName("info")
     val info: InfoPage? = InfoPage(),
+    @SerializedName("results")
     val results: ArrayList<Image> = arrayListOf()
 )
 @Entity(tableName = "info_character_page")
