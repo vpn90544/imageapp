@@ -7,8 +7,8 @@ import retrofit2.http.Url
 
 interface AllImagesService
 {
-    @GET("character/")
-    suspend fun getImagesDefault(): Result<ImagesInfoPage>
+    @GET
+    suspend fun getImagesDefault(@Url url:String): Result<ImagesInfoPage>
     @GET
     suspend fun getImagesNewPage(@Url url:String): Result<ImagesInfoPage>
 }

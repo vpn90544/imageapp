@@ -1,5 +1,6 @@
 package com.appimage.allimage.presentation
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.appimage.allimage.data.AllImageRepository
 import com.appimage.allimage.data.dto.ImagesInfoPage
@@ -7,6 +8,7 @@ import com.appimage.allimage.data.mapper.MapperImagesInfoDtoToViewModel
 import com.appimage.arch.viewmodel.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.w3c.dom.CharacterData
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -25,15 +27,24 @@ class AllImageScreenViewModel @Inject constructor(
         }
     }
 
+    fun fromfrgaf(){
+        viewModelScope.launch (Dispatchers.IO){
+            getDefaultLoadImages()
+        }
+    }
+
     private suspend fun getDefaultLoadImages(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
-            viewModelScope.launch {
-                repository.getLoadDefaultImagesFromWeb().onSuccess { result ->
+            viewModelScope.launch(Dispatchers.IO) {
+                repository.getLoadDefaultImagesFromWeb("https://rickandmortyapi.com/api/character/?page=2").onSuccess { result ->
                     continuation.resume(result)
-                    val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
-                    updateState { state->
-                        state.copy(list = mapList)
-                    }
+                    println(result)
+                //val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
+//                    withContext(Dispatchers.Main){
+//                        updateState { state->
+//                            state.copy(list = mapList)
+//                        }
+//                    }
                 }.onFailure {
                     continuation.resumeWithException(it)
                 }

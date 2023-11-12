@@ -9,8 +9,8 @@ import kotlin.coroutines.CoroutineContext
 
 interface NetworkProvider {
 
-    @DefaultNetworkApi
-    fun provideBaseUrl(): HttpUrl
+//    @DefaultNetworkApi
+//    fun provideBaseUrl(): HttpUrl
 
 
     @DefaultNetworkApi

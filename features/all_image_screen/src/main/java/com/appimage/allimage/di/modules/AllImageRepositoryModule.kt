@@ -8,11 +8,14 @@ import dagger.Provides
 import retrofit2.Retrofit
 
 @Module
-object AllImageRepositoryModule {
+interface AllImageRepositoryModule {
 
-    @Provides
-    @FeatureScope
-    fun provideServiceLoginService(@DefaultNetworkApi retrofit: Retrofit): AllImagesService {
-        return retrofit.create(AllImagesService::class.java)
+    companion object{
+
+        @Provides
+        @FeatureScope
+        fun provideServiceLoginService(@DefaultNetworkApi retrofit: Retrofit): AllImagesService {
+            return retrofit.create(AllImagesService::class.java)
+        }
     }
 }
