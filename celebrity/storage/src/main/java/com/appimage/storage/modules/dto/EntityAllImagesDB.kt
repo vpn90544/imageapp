@@ -10,7 +10,7 @@ data class EntityAllImagesDB (
     var Image : Int?  = null,
 )
 
-@Entity(tableName = "allImages")
+@Entity(tableName = "likeImages")
 data class EntityLikeImagesDB (
     @PrimaryKey(autoGenerate = true)
     val idImage: Int? = null,
