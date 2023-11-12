@@ -10,6 +10,7 @@ import com.appimage.like_image_screen_api.mediators.LikeImageScreenMediator
 import com.appimage.mainscreen.data.MainScreenRepository
 import com.appimage.utils.adapter.DelegateItem
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,6 +30,7 @@ class MainScreenViewModel @Inject constructor(
 
     fun getLoadCountLikeImagesDbAndUpdateState(){
         viewModelScope.launch (Dispatchers.IO){
+            delay(200)
             val countLikeImages = mainScreenRepository.getCountFromLikeImagesDb()
             updateCountInLikeImages(countLikeImages)
         }
