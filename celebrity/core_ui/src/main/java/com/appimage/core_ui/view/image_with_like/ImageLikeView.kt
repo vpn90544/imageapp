@@ -40,6 +40,8 @@ class ImageLikeView @JvmOverloads constructor(
 
     override fun populate(model: ImageLikeViewModel) {
         setLayoutParams()
+        setMainBackground()
+        setMainBackgroundColor()
         setMainImage(model)
         setImageIsLike(model)
     }
