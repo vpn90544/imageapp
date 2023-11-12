@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import okhttp3.HttpUrl
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import kotlin.coroutines.CoroutineContext
 
 interface NetworkProvider {
 
@@ -21,4 +22,7 @@ interface NetworkProvider {
 
     @DefaultNetworkApi
     fun provideGsonConverterFactory(): GsonConverterFactory
+
+    @DefaultNetworkApi
+    fun provideCoroutineContext(): CoroutineContext
 }
