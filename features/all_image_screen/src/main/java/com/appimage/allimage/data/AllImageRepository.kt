@@ -1,10 +1,9 @@
 package com.appimage.allimage.data
 
 import com.appimage.allimage.data.api.AllImagesService
-import com.appimage.allimage.data.dto.ImagesInfoPage
+import com.appimage.allimage.data.models.ImagesInfoPage
 import com.appimage.core.di.qualifiers.DefaultNetworkApi
 import kotlinx.coroutines.withContext
-import retrofit2.Response
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 

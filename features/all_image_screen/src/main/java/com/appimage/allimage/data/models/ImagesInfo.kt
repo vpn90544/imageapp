@@ -1,4 +1,4 @@
-package com.appimage.allimage.data.dto
+package com.appimage.allimage.data.models
 
 import com.google.gson.annotations.SerializedName
 

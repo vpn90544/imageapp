@@ -1,6 +1,6 @@
 package com.appimage.allimage.data.mapper
 
-import com.appimage.allimage.data.dto.ImagesInfoPage
+import com.appimage.allimage.data.models.ImagesInfoPage
 import com.appimage.core_ui.view.image_with_like.ImageLikeViewModel
 import com.appimage.utils.adapter.DelegateItem
 
