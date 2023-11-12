@@ -1,4 +1,4 @@
-package com.appimage.storage.modules.dto
+package com.appimage.core.di.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,13 +6,15 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "allImages")
 data class EntityAllImagesDB (
     @PrimaryKey(autoGenerate = true)
-    val idImage: Int? = null,
-    var Image : Int?  = null,
+    val id: Int? = null,
+    var image : String?  = null,
+    var isLike: Boolean = false
 )
 
 @Entity(tableName = "likeImages")
 data class EntityLikeImagesDB (
     @PrimaryKey(autoGenerate = true)
-    val idImage: Int? = null,
-    var Image : Int?  = null,
+    val id: Int? = null,
+    var image : String?  = null,
+    var isLike: Boolean = true
 )

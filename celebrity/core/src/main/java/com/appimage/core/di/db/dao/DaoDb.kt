@@ -1,16 +1,16 @@
-package com.appimage.storage.modules.dao
+package com.appimage.core.di.db.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.appimage.storage.modules.dto.EntityAllImagesDB
-import com.appimage.storage.modules.dto.EntityLikeImagesDB
+import com.appimage.core.di.db.entity.EntityAllImagesDB
+import com.appimage.core.di.db.entity.EntityLikeImagesDB
 
 @Dao
 interface DaoDb {
 
     @Insert(entity = EntityLikeImagesDB::class)
-    fun insertLikeImages(likeImage: EntityLikeImagesDB)
+    fun insertLikeImage(likeImage: EntityLikeImagesDB)
 
     @Insert(entity = EntityAllImagesDB::class)
     fun insertAllImages(allImages: List<EntityAllImagesDB>)
@@ -21,6 +21,6 @@ interface DaoDb {
     fun getLikeImages():List<EntityLikeImagesDB>
     @Query("DELETE FROM allImages")
     fun clearAllImages()
-    @Query("DELETE FROM likeImages WHERE idImage =:idImage")
-    fun delItemFromLikeImages(idImage: Int)
+    @Query("DELETE FROM likeImages WHERE id =:id")
+    fun delItemFromLikeImages(id: Int)
 }

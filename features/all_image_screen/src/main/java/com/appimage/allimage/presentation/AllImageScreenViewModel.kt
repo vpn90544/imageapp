@@ -4,13 +4,14 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.viewModelScope
 import com.appimage.allimage.data.AllImageRepository
 import com.appimage.allimage.data.models.ImagesInfoPage
-import com.appimage.allimage.data.mapper.MapperImagesInfoDtoToViewModel
+import com.appimage.allimage.data.mapper.MapperForAllImages
+import com.appimage.allimage.data.mapper.MapperForLikeImage
 import com.appimage.arch.viewmodel.BaseViewModel
+import com.appimage.core.di.db.entity.EntityLikeImagesDB
 import com.appimage.core_ui.view.image_with_like.ImageLikeViewModel
 import com.appimage.utils.adapter.DelegateItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -21,6 +22,8 @@ class AllImageScreenViewModel @Inject constructor(
 )
     : BaseViewModel<AllImageScreenState>(initialState = AllImageScreenState()) {
 
+    private val mapperAllImages = MapperForAllImages()
+    private val mapperLikeImages = MapperForLikeImage()
     override fun bootstrap() {
         super.bootstrap()
         viewModelScope.launch (Dispatchers.IO){
@@ -32,15 +35,16 @@ class AllImageScreenViewModel @Inject constructor(
     private suspend fun getDefaultLoadImages(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
             viewModelScope.launch {
-                val repo = repository.getLoadDefaultImagesFromWeb()
+                repository.getLoadDefaultImagesFromWeb()
                     .onSuccess { result ->
                     continuation.resume(result)
-                val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
-                    withContext(Dispatchers.Main){
+                val mapList = mapperAllImages.mapToImageViewModels(result)
                         updateState { state->
                             state.copy(list = mapList)
                         }
-                    }
+                        repository.clearDbAllImages()
+                        repository.insertInAllImages(mapperAllImages.mapToEntityAllImages(result))
+                        println(repository.getLoadAllImagesFromWeb().size)
                 }.onFailure {
                     continuation.resumeWithException(it)
                 }
@@ -54,7 +58,9 @@ class AllImageScreenViewModel @Inject constructor(
         for (item in images) {
             if (item is ImageLikeViewModel) {
                 if (item.id == clickItem.id) {
-                    updateImages.add(item.copy(isLike = !item.isLike))
+                    val changeItem = item.copy(isLike = !item.isLike)
+                    updateImages.add(changeItem)
+                    insertLikeOrUnlikeImage(changeItem)
                 } else {
                     updateImages.add(item)
                 }
@@ -64,6 +70,12 @@ class AllImageScreenViewModel @Inject constructor(
         }
         updateState { state->
             state.copy(list = updateImages)
+        }
+    }
+
+    internal fun insertLikeOrUnlikeImage(likeImage: ImageLikeViewModel){
+        viewModelScope.launch (Dispatchers.IO){
+            repository.insertLikeOrUnLikeImages(mapperLikeImages.mapToEntityDb(likeImage))
         }
     }
 }

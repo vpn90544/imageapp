@@ -1,18 +1,18 @@
-package com.appimage.storage.modules.appDb
+package com.appimage.core.di.db.appDb
 
 import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.appimage.core.di.BaseDb
-import com.appimage.storage.modules.dao.DaoDb
-import com.appimage.storage.modules.dto.EntityAllImagesDB
-import com.appimage.storage.modules.dto.EntityLikeImagesDB
+import com.appimage.core.di.db.dao.DaoDb
+import com.appimage.core.di.db.entity.EntityAllImagesDB
+import com.appimage.core.di.db.entity.EntityLikeImagesDB
 
 @Database(
     version = 1,
     entities = [
-        EntityAllImagesDB::class,EntityLikeImagesDB::class
+        EntityAllImagesDB::class, EntityLikeImagesDB::class
                ],
     exportSchema = false)
 abstract class AppDataBase : RoomDatabase(),BaseDb {
