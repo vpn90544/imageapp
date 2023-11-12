@@ -7,7 +7,7 @@ import com.appimage.utils.adapter.DelegateItem
 
 data class MainUiState (
     val listCategory :ArrayList<DelegateItem> = arrayListOf(
-        CategoryViewModel("name1", isActive = CategoryView.Style.Activated),
-        CategoryViewModel("name2", countInCategory = 0)
+        CategoryViewModel("All Images", isActive = CategoryView.Style.Activated),
+        CategoryViewModel("Like Images")
     )
 ): BaseUiState

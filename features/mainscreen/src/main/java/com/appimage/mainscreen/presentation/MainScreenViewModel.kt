@@ -18,7 +18,7 @@ class MainScreenViewModel @Inject constructor(
 
     override fun bootstrap() {
         super.bootstrap()
-        navigateToLikeImages()
+        navigateToAllImages()
     }
     fun navigateToLikeImages() {
         likeImageScreenMediator.showLikeImageScreenFragment {
@@ -52,8 +52,20 @@ class MainScreenViewModel @Inject constructor(
 
     private fun changeContentScreen(categoryName: String) {
         when(categoryName){
-            "name1" -> { navigateToLikeImages() }
-            "name2" -> { navigateToAllImages() }
+            "All Images" -> { navigateToAllImages() }
+            "Like Images" -> { navigateToLikeImages()}
+        }
+    }
+
+    internal fun updateCountInLikeImages(count:Int) {
+        val oldlist = mutableUiState.value.listCategory
+        val newList = ArrayList<DelegateItem>()
+        for (item in oldlist) {
+            if (item is CategoryViewModel) {
+                if (item.nameCategory == "Like Images") {
+                    newList.add(item.copy(countInCategory = count))
+                } else newList.add(item)
+            } else newList.add(item)
         }
     }
 }
