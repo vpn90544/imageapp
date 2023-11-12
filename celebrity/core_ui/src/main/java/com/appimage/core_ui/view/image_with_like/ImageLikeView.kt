@@ -25,23 +25,15 @@ class ImageLikeView @JvmOverloads constructor(
     Populatable<ImageLikeViewModel>
 {
     private val imageLikeViewBinding: ImageLikeViewBinding
-    private var mainContainerColor: ColorStateList
 
     init {
         val inflater = LayoutInflater.from(context)
         inflater.inflate(R.layout.image_like_view, this, true)
         imageLikeViewBinding = ImageLikeViewBinding.bind(this)
-        mainContainerColor = context.getColorStateList(R.color.image_like_main_container)
-    }
-
-    companion object {
-        const val CORNER_COUNT_CONTAINER_DP = 16
     }
 
     override fun populate(model: ImageLikeViewModel) {
         setLayoutParams()
-        setMainBackground()
-        setMainBackgroundColor()
         setMainImage(model)
         setImageIsLike(model)
     }
@@ -71,23 +63,5 @@ class ImageLikeView @JvmOverloads constructor(
         imageLikeViewBinding.imageIsLike.setOnClickListener {
             action.invoke(model)
         }
-    }
-
-    private fun setMainBackground() {
-        imageLikeViewBinding.mainContainer.background = MaterialShapeDrawable(
-            getDrawableBackgroundWithAllCorner(CORNER_MAIN_CONTAINER_DP)
-        )
-    }
-
-    private fun setMainBackgroundColor() {
-        (imageLikeViewBinding.mainContainer.background as MaterialShapeDrawable).apply {
-            fillColor = mainContainerColor
-        }
-    }
-
-    private fun getDrawableBackgroundWithAllCorner(cornerRadius: Int): ShapeAppearanceModel {
-        return ShapeAppearanceModel.builder()
-            .setAllCorners(CornerFamily.ROUNDED, cornerRadius.dpToPx().toFloat())
-            .build()
     }
 }
