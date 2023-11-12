@@ -6,13 +6,15 @@ import com.appimage.utils.adapter.DelegateItem
 
 class MapperImagesInfoDtoToViewModel {
 
-    fun mapToImageViewModels(dto: ImagesInfoPage) : List<DelegateItem>{
-        val results = dto.results
+    fun mapToImageViewModels(dto: ImagesInfoPage?) : List<DelegateItem>{
         val listViewModels = ArrayList<DelegateItem>()
-        for (result in results) {
-            if (result.image!=null && result.id!=null) {
-                listViewModels.add(ImageLikeViewModel(id = result.id,
-                    imageUrl = result.image))
+        if (dto!=null) {
+            val results = dto.results
+            for (result in results) {
+                if (result.image!=null && result.id!=null) {
+                    listViewModels.add(ImageLikeViewModel(id = result.id,
+                        imageUrl = result.image))
+                }
             }
         }
         return listViewModels

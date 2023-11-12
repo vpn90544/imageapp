@@ -36,11 +36,12 @@ class AllImageScreenViewModel @Inject constructor(
     private suspend fun getDefaultLoadImages(): ImagesInfoPage {
         return suspendCoroutine { continuation ->
             viewModelScope.launch(Dispatchers.IO) {
-                repository.getLoadDefaultImagesFromWeb("https://rickandmortyapi.com/api/character/?page=2").onSuccess { result ->
+                repository.getLoadDefaultImagesFromWeb().onSuccess { result ->
                     continuation.resume(result)
+                val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
+                    //println(result.info)
                     println(result)
-                //val mapList = MapperImagesInfoDtoToViewModel().mapToImageViewModels(result)
-//                    withContext(Dispatchers.Main){
+                   // withContext(Dispatchers.Main){
 //                        updateState { state->
 //                            state.copy(list = mapList)
 //                        }
