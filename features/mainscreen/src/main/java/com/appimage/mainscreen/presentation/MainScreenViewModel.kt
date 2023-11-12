@@ -37,7 +37,7 @@ class MainScreenViewModel @Inject constructor(
         val updateListForState = ArrayList<DelegateItem>()
         for (elem in state) {
             if (elem is CategoryViewModel) {
-                if (elem == category) {
+                if (elem.nameCategory == category.nameCategory) {
                     updateListForState.add(elem.copy(isActive = CategoryView.Style.Activated))
                 }
                 else {
